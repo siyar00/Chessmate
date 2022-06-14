@@ -1,6 +1,6 @@
-.box {
-  width: 5.55556rem;
-  height: 5.55556rem;
+div.box {
+  width: 4.16667rem;
+  height: 4.16667rem;
   border: 1px solid black;
   display: inline-block;
   margin: -2px;
@@ -8,13 +8,18 @@
   text-align: center;
 }
 
-.box img {
-  width: 4.5rem;
-  height: 4.5rem;
+div.box img {
+  margin: 2.75px;
+  width: 3.75rem;
+  height: 3.75rem;
+}
+
+div.box img[alt] {
+  color: transparent;
 }
 
 div.chess-row {
-  height: 5rem;
+  height: 4.16667rem;
 }
 
 div.chess-table {
@@ -32,21 +37,25 @@ div.chess-table {
 }
 
 @media (max-width: 750px) {
-  .box {
-    width: 4.44444rem;
-    height: 4.44444rem;
+  div.box {
+    width: 3.33333rem;
+    height: 3.33333rem;
     border: 1px solid black;
     display: inline-block;
     margin: -2px;
     font-size: 1.33333rem;
     text-align: center;
   }
-  .box img {
-    width: 3.6rem;
-    height: 3.6rem;
+  div.box img {
+    margin: 2px;
+    width: 3rem;
+    height: 3rem;
+  }
+  div.box img[alt] {
+    color: transparent;
   }
   div.chess-row {
-    height: 4rem;
+    height: 3.33333rem;
   }
   div.chess-table {
     width: 40rem;
@@ -54,21 +63,25 @@ div.chess-table {
 }
 
 @media (max-width: 580px) {
-  .box {
-    width: 3.33333rem;
-    height: 3.33333rem;
+  div.box {
+    width: 2.5rem;
+    height: 2.5rem;
     border: 1px solid black;
     display: inline-block;
     margin: -2px;
     font-size: 1rem;
     text-align: center;
   }
-  .box img {
-    width: 2.7rem;
-    height: 2.7rem;
+  div.box img {
+    margin: 1.25px;
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+  div.box img[alt] {
+    color: transparent;
   }
   div.chess-row {
-    height: 3rem;
+    height: 2.5rem;
   }
   div.chess-table {
     width: 30rem;
@@ -76,24 +89,28 @@ div.chess-table {
 }
 
 @media (max-width: 450px) {
-  .box {
-    width: 2.66667rem;
-    height: 2.66667rem;
+  div.box {
+    width: 2rem;
+    height: 2rem;
     border: 1px solid black;
     display: inline-block;
     margin: -2px;
     font-size: 0.8rem;
     text-align: center;
   }
-  .box img {
-    width: 2.16rem;
-    height: 2.16rem;
+  div.box img {
+    margin: 1px;
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+  div.box img[alt] {
+    color: transparent;
   }
   div.chess-row {
-    height: 2.4rem;
+    height: 2rem;
   }
   div.chess-table {
-    width: 22rem;
+    width: 24rem;
   }
 }
 /*# sourceMappingURL=style.css.map */

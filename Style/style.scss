@@ -1,21 +1,26 @@
 $imageSize: 50rem;
 
-.box {
-  width: $imageSize / 9;
-  height: $imageSize / 9;
+div.box {
+  width: $imageSize / 12;
+  height: $imageSize / 12;
   border: 1px solid black;
   display: inline-block;
   margin: -2px;
   font-size: $imageSize / 30;
   text-align: center;
   img {
-    width: $imageSize / 10 * 0.9;
-    height: $imageSize / 10 * 0.9;
+    margin: 2.75px;
+    width: $imageSize / 12 * 0.9;
+    height: $imageSize / 12 * 0.9;
+    &[alt]{
+      color: transparent;
+    }
   }
 }
 
+
 div.chess-row{
-    height: $imageSize / 10;
+    height: $imageSize / 12;
 }
 
 div.chess-table{
@@ -34,75 +39,89 @@ div.chess-table{
 
 @media (max-width: 750px) {
     $imageSize: 40rem;
-    .box {
-        width: $imageSize / 9;
-        height: $imageSize / 9;
-        border: 1px solid black;
-        display: inline-block;
-        margin: -2px;
-        font-size: $imageSize / 30;
-        text-align: center;
-        img {
-          width: $imageSize / 10 * 0.9;
-          height: $imageSize / 10 * 0.9;
+    div.box {
+      width: $imageSize / 12;
+      height: $imageSize / 12;
+      border: 1px solid black;
+      display: inline-block;
+      margin: -2px;
+      font-size: $imageSize / 30;
+      text-align: center;
+      img {
+        margin: 2px;
+        width: $imageSize / 12 * 0.9;
+        height: $imageSize / 12 * 0.9;
+        &[alt]{
+          color: transparent;
         }
       }
-      
-      div.chess-row{
-          height: $imageSize / 10;
-      }
-      
-      div.chess-table{
-          width: $imageSize;
-      }
+    }
+    
+    
+    div.chess-row{
+        height: $imageSize / 12;
+    }
+    
+    div.chess-table{
+        width: $imageSize;
+    }
 }
 
 @media (max-width: 580px) {
     $imageSize: 30rem;
-    .box {
-        width: $imageSize / 9;
-        height: $imageSize / 9;
-        border: 1px solid black;
-        display: inline-block;
-        margin: -2px;
-        font-size: $imageSize / 30;
-        text-align: center;
-        img {
-          width: $imageSize / 10 * 0.9;
-          height: $imageSize / 10 * 0.9;
+    div.box {
+      width: $imageSize / 12;
+      height: $imageSize / 12;
+      border: 1px solid black;
+      display: inline-block;
+      margin: -2px;
+      font-size: $imageSize / 30;
+      text-align: center;
+      img {
+        margin: 1.25px;
+        width: $imageSize / 12 * 0.9;
+        height: $imageSize / 12 * 0.9;
+        &[alt]{
+          color: transparent;
         }
       }
-      
-      div.chess-row{
-          height: $imageSize / 10;
-      }
-      
-      div.chess-table{
-          width: $imageSize;
-      }
+    }
+    
+    
+    div.chess-row{
+        height: $imageSize / 12;
+    }
+    
+    div.chess-table{
+        width: $imageSize;
+    }
 }
 
 @media (max-width: 450px) {
     $imageSize: 24rem;
-    .box {
-        width: $imageSize / 9;
-        height: $imageSize / 9;
-        border: 1px solid black;
-        display: inline-block;
-        margin: -2px;
-        font-size: $imageSize / 30;
-        text-align: center;
-        img {
-          width: $imageSize / 10 * 0.9;
-          height: $imageSize / 10 * 0.9;
+    div.box {
+      width: $imageSize / 12;
+      height: $imageSize / 12;
+      border: 1px solid black;
+      display: inline-block;
+      margin: -2px;
+      font-size: $imageSize / 30;
+      text-align: center;
+      img {
+        margin: 1px;
+        width: $imageSize / 12 * 0.9;
+        height: $imageSize / 12 * 0.9;
+        &[alt]{
+          color: transparent;
         }
       }
-      
-      div.chess-row{
-          height: $imageSize / 10;
-      }
-      
-      div.chess-table{
-          width: $imageSize - 2rem;
-      }
+    }
+        
+    div.chess-row{
+        height: $imageSize / 12;
+    }
+    
+    div.chess-table{
+        width: $imageSize;
+    }
 }
