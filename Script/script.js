@@ -28,40 +28,40 @@ $(document).ready(function fenBoard() {
       }
       switch (figur) {
         case "k":
-          $("div.box div").eq(i).html('<img src="' + chesspieces.get("k") + '" alt="Black King">');
+          $("div.box div").eq(i).html('<img id="k" src="' + chesspieces.get("k") + '" alt="Black King">');
           break;
         case "q":
-          $("div.box div").eq(i).html('<img src="' + chesspieces.get("q") + '" alt="Black Queen">');
+          $("div.box div").eq(i).html('<img id="q" src="' + chesspieces.get("q") + '" alt="Black Queen">');
           break;
         case "b":
-          $("div.box div").eq(i).html('<img src="' + chesspieces.get("b") + '" alt="Black Bishop">');
+          $("div.box div").eq(i).html('<img id="b" src="' + chesspieces.get("b") + '" alt="Black Bishop">');
           break;
         case "n":
-          $("div.box div").eq(i).html('<img src="' + chesspieces.get("n") + '" alt="Black Knight">');
+          $("div.box div").eq(i).html('<img id="n" src="' + chesspieces.get("n") + '" alt="Black Knight">');
           break;
         case "r":
-          $("div.box div").eq(i).html('<img src="' + chesspieces.get("r") + '" alt="Black Rook">');
+          $("div.box div").eq(i).html('<img id="r" src="' + chesspieces.get("r") + '" alt="Black Rook">');
           break;
         case "p":
-          $("div.box div").eq(i).html('<img src="' + chesspieces.get("p") + '" alt="Black Pawn">');
+          $("div.box div").eq(i).html('<img id="p" src="' + chesspieces.get("p") + '" alt="Black Pawn">');
           break;
         case "K":
-          $("div.box div").eq(i).html('<img src="' + chesspieces.get("K") + '" alt="White King">');
+          $("div.box div").eq(i).html('<img id="K" src="' + chesspieces.get("K") + '" alt="White King">');
           break;
         case "Q":
-          $("div.box div").eq(i).html('<img src="' + chesspieces.get("Q") + '" alt="White Queen">');
+          $("div.box div").eq(i).html('<img id="Q" src="' + chesspieces.get("Q") + '" alt="White Queen">');
           break;
         case "B":
-          $("div.box div").eq(i).html('<img src="' + chesspieces.get("B") + '" alt="White Bishop">');
+          $("div.box div").eq(i).html('<img id="B" src="' + chesspieces.get("B") + '" alt="White Bishop">');
           break;
         case "N":
-          $("div.box div").eq(i).html('<img src="' + chesspieces.get("N") + '" alt="White Knight">');
+          $("div.box div").eq(i).html('<img id="N" src="' + chesspieces.get("N") + '" alt="White Knight">');
           break;
         case "R":
-          $("div.box div").eq(i).html('<img src="' + chesspieces.get("R") + '" alt="White Rook">');
+          $("div.box div").eq(i).html('<img id="R" src="' + chesspieces.get("R") + '" alt="White Rook">');
           break;
         case "P":
-          $("div.box div").eq(i).html('<img src="' + chesspieces.get("P") + '" alt="White Pawn">');
+          $("div.box div").eq(i).html('<img id="P" src="' + chesspieces.get("P") + '" alt="White Pawn">');
           break;
       }
     }
