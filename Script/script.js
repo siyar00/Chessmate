@@ -16,13 +16,12 @@ const chesspieces = new Map([
 var FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
 $(document).ready(function(){
-    $("img").draggable({ cursor: "move", cursorAt: { top: 35, left: 35 }});
+    $("span").draggable({ cursor: "move", cursorAt: { top: 35, left: 35 }});
 })
 
 $(document).ready(function fenBoard(){
     let fen = FEN.split(" ");
     let board = fen[0].split("/")
-    console.log($("span")[0])
     let i = -1;
     for(const row of board){
         for (const figur of row) {

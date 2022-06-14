@@ -1,0 +1,99 @@
+.box {
+  width: 5.55556rem;
+  height: 5.55556rem;
+  border: 1px solid black;
+  display: inline-block;
+  margin: -2px;
+  font-size: 1.66667rem;
+  text-align: center;
+}
+
+.box img {
+  width: 4.5rem;
+  height: 4.5rem;
+}
+
+div.chess-row {
+  height: 5rem;
+}
+
+div.chess-table {
+  width: 50rem;
+}
+
+.black-box {
+  background-color: #ca804c;
+  color: white;
+}
+
+.white-box {
+  background-color: #e4b99a;
+  color: white;
+}
+
+@media (max-width: 750px) {
+  .box {
+    width: 4.44444rem;
+    height: 4.44444rem;
+    border: 1px solid black;
+    display: inline-block;
+    margin: -2px;
+    font-size: 1.33333rem;
+    text-align: center;
+  }
+  .box img {
+    width: 3.6rem;
+    height: 3.6rem;
+  }
+  div.chess-row {
+    height: 4rem;
+  }
+  div.chess-table {
+    width: 40rem;
+  }
+}
+
+@media (max-width: 580px) {
+  .box {
+    width: 3.33333rem;
+    height: 3.33333rem;
+    border: 1px solid black;
+    display: inline-block;
+    margin: -2px;
+    font-size: 1rem;
+    text-align: center;
+  }
+  .box img {
+    width: 2.7rem;
+    height: 2.7rem;
+  }
+  div.chess-row {
+    height: 3rem;
+  }
+  div.chess-table {
+    width: 30rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .box {
+    width: 2.66667rem;
+    height: 2.66667rem;
+    border: 1px solid black;
+    display: inline-block;
+    margin: -2px;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+  .box img {
+    width: 2.16rem;
+    height: 2.16rem;
+  }
+  div.chess-row {
+    height: 2.4rem;
+  }
+  div.chess-table {
+    width: 22rem;
+  }
+}
+/*# sourceMappingURL=style.css.map */

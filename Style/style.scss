@@ -1,0 +1,108 @@
+$imageSize: 50rem;
+
+.box {
+  width: $imageSize / 9;
+  height: $imageSize / 9;
+  border: 1px solid black;
+  display: inline-block;
+  margin: -2px;
+  font-size: $imageSize / 30;
+  text-align: center;
+  img {
+    width: $imageSize / 10 * 0.9;
+    height: $imageSize / 10 * 0.9;
+  }
+}
+
+div.chess-row{
+    height: $imageSize / 10;
+}
+
+div.chess-table{
+    width: $imageSize;
+}
+
+.black-box {
+  background-color: rgb(202, 128, 76);
+  color: white;
+}
+
+.white-box {
+  background-color: rgb(228, 185, 154);
+  color: white;
+}
+
+@media (max-width: 750px) {
+    $imageSize: 40rem;
+    .box {
+        width: $imageSize / 9;
+        height: $imageSize / 9;
+        border: 1px solid black;
+        display: inline-block;
+        margin: -2px;
+        font-size: $imageSize / 30;
+        text-align: center;
+        img {
+          width: $imageSize / 10 * 0.9;
+          height: $imageSize / 10 * 0.9;
+        }
+      }
+      
+      div.chess-row{
+          height: $imageSize / 10;
+      }
+      
+      div.chess-table{
+          width: $imageSize;
+      }
+}
+
+@media (max-width: 580px) {
+    $imageSize: 30rem;
+    .box {
+        width: $imageSize / 9;
+        height: $imageSize / 9;
+        border: 1px solid black;
+        display: inline-block;
+        margin: -2px;
+        font-size: $imageSize / 30;
+        text-align: center;
+        img {
+          width: $imageSize / 10 * 0.9;
+          height: $imageSize / 10 * 0.9;
+        }
+      }
+      
+      div.chess-row{
+          height: $imageSize / 10;
+      }
+      
+      div.chess-table{
+          width: $imageSize;
+      }
+}
+
+@media (max-width: 450px) {
+    $imageSize: 24rem;
+    .box {
+        width: $imageSize / 9;
+        height: $imageSize / 9;
+        border: 1px solid black;
+        display: inline-block;
+        margin: -2px;
+        font-size: $imageSize / 30;
+        text-align: center;
+        img {
+          width: $imageSize / 10 * 0.9;
+          height: $imageSize / 10 * 0.9;
+        }
+      }
+      
+      div.chess-row{
+          height: $imageSize / 10;
+      }
+      
+      div.chess-table{
+          width: $imageSize - 2rem;
+      }
+}
