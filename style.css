@@ -1,14 +1,25 @@
-.box{
-    width: 150px;
-    height: 150px;
-    border: 1px solid black;
-    display: inline-block;
-    margin: -2px;
-    font-size: 60px;
-    text-align: center;
+.box {
+  width: 70px;
+  height: 70px;
+  border: 1px solid black;
+  display: inline-block;
+  margin: -2px;
+  font-size: 60px;
+  text-align: center;
 }
 
-.black{
-    background-color: black;
-    color:white;
+.box img {
+  width: 70px;
+  height: 70px;
 }
+
+.black-box {
+  background-color: #ca804c;
+  color: white;
+}
+
+.white-box {
+  background-color: #e4b99a;
+  color: white;
+}
+/*# sourceMappingURL=style.css.map */
