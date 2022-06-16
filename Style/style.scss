@@ -1,6 +1,7 @@
 $imageSize: 50rem;
 
 div.box {
+  // width: $imageSize / 12;
   width: $imageSize / 12;
   height: $imageSize / 12;
   border: 1px solid black;
@@ -9,7 +10,7 @@ div.box {
   font-size: $imageSize / 30;
   text-align: center;
   img {
-    margin: 2.75px;
+    margin: 2.733px;
     width: $imageSize / 12 * 0.9;
     height: $imageSize / 12 * 0.9;
     &[alt]{
@@ -24,7 +25,8 @@ div.chess-row{
 }
 
 div.chess-table{
-    width: $imageSize;
+    width: $imageSize - 15rem;
+    height: $imageSize - 15rem;
 }
 
 .black-box {
@@ -37,7 +39,16 @@ div.chess-table{
   color: white;
 }
 
-@media (max-width: 750px) {
+.unselectable {
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #cc0000;
+}//Damit das markieren nicht funktioniert
+
+@media (max-width: 550px) {
     $imageSize: 40rem;
     div.box {
       width: $imageSize / 12;
@@ -48,37 +59,7 @@ div.chess-table{
       font-size: $imageSize / 30;
       text-align: center;
       img {
-        margin: 2px;
-        width: $imageSize / 12 * 0.9;
-        height: $imageSize / 12 * 0.9;
-        &[alt]{
-          color: transparent;
-        }
-      }
-    }
-    
-    
-    div.chess-row{
-        height: $imageSize / 12;
-    }
-    
-    div.chess-table{
-        width: $imageSize;
-    }
-}
-
-@media (max-width: 580px) {
-    $imageSize: 30rem;
-    div.box {
-      width: $imageSize / 12;
-      height: $imageSize / 12;
-      border: 1px solid black;
-      display: inline-block;
-      margin: -2px;
-      font-size: $imageSize / 30;
-      text-align: center;
-      img {
-        margin: 1.25px;
+        margin: 2.1666px;
         width: $imageSize / 12 * 0.9;
         height: $imageSize / 12 * 0.9;
         &[alt]{
@@ -98,6 +79,36 @@ div.chess-table{
 }
 
 @media (max-width: 450px) {
+    $imageSize: 30rem;
+    div.box {
+      width: $imageSize / 12;
+      height: $imageSize / 12;
+      border: 1px solid black;
+      display: inline-block;
+      margin: -2px;
+      font-size: $imageSize / 30;
+      text-align: center;
+      img {
+        margin: 1.5px;
+        width: $imageSize / 12 * 0.9;
+        height: $imageSize / 12 * 0.9;
+        &[alt]{
+          color: transparent;
+        }
+      }
+    }
+    
+    
+    div.chess-row{
+        height: $imageSize / 12;
+    }
+    
+    div.chess-table{
+        width: $imageSize;
+    }
+}
+
+@media (max-width: 350px) {
     $imageSize: 24rem;
     div.box {
       width: $imageSize / 12;

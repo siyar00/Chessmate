@@ -9,7 +9,7 @@ div.box {
 }
 
 div.box img {
-  margin: 2.75px;
+  margin: 2.733px;
   width: 3.75rem;
   height: 3.75rem;
 }
@@ -23,7 +23,8 @@ div.chess-row {
 }
 
 div.chess-table {
-  width: 50rem;
+  width: 35rem;
+  height: 35rem;
 }
 
 .black-box {
@@ -36,7 +37,16 @@ div.chess-table {
   color: white;
 }
 
-@media (max-width: 750px) {
+.unselectable {
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #cc0000;
+}
+
+@media (max-width: 550px) {
   div.box {
     width: 3.33333rem;
     height: 3.33333rem;
@@ -47,7 +57,7 @@ div.chess-table {
     text-align: center;
   }
   div.box img {
-    margin: 2px;
+    margin: 2.1666px;
     width: 3rem;
     height: 3rem;
   }
@@ -62,7 +72,7 @@ div.chess-table {
   }
 }
 
-@media (max-width: 580px) {
+@media (max-width: 450px) {
   div.box {
     width: 2.5rem;
     height: 2.5rem;
@@ -73,7 +83,7 @@ div.chess-table {
     text-align: center;
   }
   div.box img {
-    margin: 1.25px;
+    margin: 1.5px;
     width: 2.25rem;
     height: 2.25rem;
   }
@@ -88,7 +98,7 @@ div.chess-table {
   }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 350px) {
   div.box {
     width: 2rem;
     height: 2rem;
