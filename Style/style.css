@@ -22,19 +22,12 @@ div.chess-row {
   height: 4.16667rem;
 }
 
-div.chess-table {
-  width: 35rem;
-  height: 35rem;
-}
-
 .black-box {
   background-color: #ca804c;
-  color: white;
 }
 
 .white-box {
   background-color: #e4b99a;
-  color: white;
 }
 
 .unselectable {
@@ -43,7 +36,10 @@ div.chess-table {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  color: #cc0000;
+}
+
+.highlight {
+  background-color: #ffb50784 !important;
 }
 
 @media (max-width: 550px) {

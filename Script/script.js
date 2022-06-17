@@ -1,5 +1,6 @@
+import {BlackPawnMove, WhitePawnMovement, BlackRookMovement, WhiteRookMovement} from './movement.js'
+
 //Speichere die FEN in die Datenbank immer wieder rein für den jeweiligen User
-//Newgame Button, sodass der FEN sich wieder normalisiert 
 String.prototype.replaceAt = function(index, replacement) {
   return this.substring(0, index) + replacement + this.substring(index + replacement.length);
 }
@@ -50,13 +51,15 @@ function deleteMovedFigure(row, column){
 var fenBoard;
 $(document).ready(fenBoard = () => {
   for (const i in $("div.box")) {
-    $("div.box").eq(i).html('<div class="dragdrop"></div>')
+    $("div.box").eq(i).html('<div class="dragdrop draghandle"></div>')
     $("div.box").eq(i).addClass("drop");
     $("div.box").eq(i).children().draggable({
       revert: true,
       placeholder: false,
       droptarget: "div.drop",
+      handle: "img",
       drop: function (evt, droptarget) {
+        $(".highlight").removeClass("highlight")
         $(this).appendTo(droptarget).draggable();
         let fen = FEN.split(" ");
         let board = fen[0].split("/");
@@ -136,8 +139,43 @@ $(document).ready(fenBoard = () => {
   } else {
     $("img.white").parent().unbind()
   }
-  console.log(board);
+  // console.log(board);
 });
+
+function figureMovement (figure, place) {
+  $("div.highlight").removeClass("highlight");
+  switch(figure){
+    case "k":
+      break;
+    case "q":
+      break;
+    case "b":
+      break;
+    case "n":
+      break;
+    case "r":
+      BlackRookMovement(place);
+      break;
+    case "p":
+      BlackPawnMove(place);
+      break;
+    case "K":
+      break;
+    case "Q":
+      break;
+    case "B":
+      break;
+    case "N":
+      break;
+    case "R":
+      WhiteRookMovement(place);
+      break;
+    case "P":
+      WhitePawnMovement(place);
+      break;
+  }
+}
+
 
 $(document).ready(function () {
   $(".draggables").draggable({ delegate: "button", placeholder: true });
@@ -146,24 +184,14 @@ $(document).ready(function () {
     revert: true,
     placeholder: false,
     droptarget: "div.drop",
+    // update: $(document).mousedown(function(event){
+    //   console.log(event, this)
+    // }),
     drop: function (evt, droptarget) {
       $(this).appendTo(droptarget).draggable();
     },
   });
 });
-
-
-$(function () {
-  $(document).mousedown(".dragdrop", function(event) {
-    console.log(1)
-    console.log(event.target.id, event.target.parentElement.id, event);
-    // console.log(event.currentTarget.lastChild.firstChild)
-  })
-  $(document).on("mouseup", "img", function(event) {
-    console.log("j");
-    // console.log(event.currentTarget.lastChild.firstChild)
-  })
-})
 
 $(document).ready(()=>{
   $("button").click(function(){
@@ -177,3 +205,6 @@ $(document).ready(()=>{
 //       return false;
 //     });
 // });//Damit Rechtsklicken nicht auf dem Schachbrett funktioniert
+
+
+export {fenBoard, figureMovement};

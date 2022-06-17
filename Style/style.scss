@@ -1,7 +1,6 @@
 $imageSize: 50rem;
 
 div.box {
-  // width: $imageSize / 12;
   width: $imageSize / 12;
   height: $imageSize / 12;
   border: 1px solid black;
@@ -19,24 +18,16 @@ div.box {
   }
 }
 
-
 div.chess-row{
     height: $imageSize / 12;
 }
 
-div.chess-table{
-    width: $imageSize - 15rem;
-    height: $imageSize - 15rem;
-}
-
 .black-box {
   background-color: rgb(202, 128, 76);
-  color: white;
 }
 
 .white-box {
   background-color: rgb(228, 185, 154);
-  color: white;
 }
 
 .unselectable {
@@ -45,8 +36,11 @@ div.chess-table{
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  color: #cc0000;
 }//Damit das markieren nicht funktioniert
+
+.highlight{
+  background-color: #ffb50784 !important;
+}
 
 @media (max-width: 550px) {
     $imageSize: 40rem;
@@ -67,8 +61,7 @@ div.chess-table{
         }
       }
     }
-    
-    
+
     div.chess-row{
         height: $imageSize / 12;
     }
@@ -97,7 +90,6 @@ div.chess-table{
         }
       }
     }
-    
     
     div.chess-row{
         height: $imageSize / 12;

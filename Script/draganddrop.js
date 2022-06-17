@@ -1,3 +1,5 @@
+import {fenBoard, figureMovement} from "./script.js"
+
 function factory($) {
 "use strict";
 
@@ -474,8 +476,11 @@ function Dragaware(el, options) {
     }
 
     function start(evt) {
-        var $target = $(evt.target);
+        {
+            figureMovement(evt.target.id, evt.currentTarget.id)
+        }
 
+        var $target = $(evt.target);
         $reference = options.delegate ? $target.closest(options.delegate) : $dragaware;
 
         if ($target.closest(options.handle || '*').length && (evt.type == 'touchstart' || evt.button == 0)) {
