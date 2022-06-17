@@ -1,4 +1,5 @@
-import {BlackPawnMove, WhitePawnMovement, BlackRookMovement, WhiteRookMovement} from './movement.js'
+import {BlackPawnMove, WhitePawnMovement, BlackRookMovement, WhiteRookMovement, BlackBishopMovement, 
+  WhiteBishopMovement, WhiteQueenMovement, BlackQueenMovement} from './movement.js'
 
 //Speichere die FEN in die Datenbank immer wieder rein für den jeweiligen User
 String.prototype.replaceAt = function(index, replacement) {
@@ -31,7 +32,9 @@ const rows = new Map([
   ["h", 7],
 ])
 
-var FEN = "rnbqkbnr/pppppppp/11111111/11111111/11111111/11111111/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+// var FEN = "rnbqkbnr/pppppppp/11111111/11111111/11111111/11111111/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+var FEN = "11111111/11111111/11111111/1111Qq11/11111111/11111111/11111111/11111111 w KQkq - 0 1";
+
 var mousedown;
 
 function addFigureToRow(row, column, figure){
@@ -144,12 +147,15 @@ $(document).ready(fenBoard = () => {
 
 function figureMovement (figure, place) {
   $("div.highlight").removeClass("highlight");
+  $("div.box").removeClass("drop")
   switch(figure){
     case "k":
       break;
     case "q":
+      BlackQueenMovement(place);
       break;
     case "b":
+      BlackBishopMovement(place);
       break;
     case "n":
       break;
@@ -162,8 +168,10 @@ function figureMovement (figure, place) {
     case "K":
       break;
     case "Q":
+      WhiteQueenMovement(place)
       break;
     case "B":
+      WhiteBishopMovement(place);
       break;
     case "N":
       break;
@@ -196,6 +204,7 @@ $(document).ready(function () {
 $(document).ready(()=>{
   $("button").click(function(){
     FEN = "rnbqkbnr/pppppppp/11111111/11111111/11111111/11111111/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+    $("div.highlight").removeClass("highlight")
     fenBoard();
   }) 
 })
