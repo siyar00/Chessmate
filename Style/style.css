@@ -26,8 +26,16 @@ div.chess-row {
   background-color: #ca804c;
 }
 
+.black-box.highlight {
+  background: radial-gradient(ellipse, #ca804c, #ca804c, #ff0707) !important;
+}
+
 .white-box {
   background-color: #e4b99a;
+}
+
+.white-box.highlight {
+  background: radial-gradient(ellipse, #e4b99a, #e4b99a, #ff0707) !important;
 }
 
 .unselectable {
@@ -36,10 +44,6 @@ div.chess-row {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
-
-.highlight {
-  background-color: #ffb50784 !important;
 }
 
 @media (max-width: 550px) {

@@ -1,23 +1,22 @@
 function WhitePawnMovement(place){
+  const firstPlace = place.charAt(0)+(parseInt(place.charAt(1))-1);
+  if($("div.box#"+firstPlace).has("img").length) return;  
+  $("div.box#"+firstPlace).addClass("drop highlight")
     if(place.charAt(1) == 7){
-      const firstPlace = place.charAt(0)+(parseInt(place.charAt(1))-1);
       const secondPlace = place.charAt(0)+(parseInt(place.charAt(1))-2);
-      $("div.box#"+firstPlace).addClass("drop highlight")
+      if($("div.box#"+secondPlace).has("img").length) return;  
       $("div.box#"+secondPlace).addClass("drop highlight")
-    } else {
-      const firstPlace = place.charAt(0)+(parseInt(place.charAt(1))-1);
-      $("div.box#"+firstPlace).addClass("drop highlight")
     }
 }
   
 function BlackPawnMove(place){
   const firstPlace = place.charAt(0)+(parseInt(place.charAt(1))+1);
+  if($("div.box#"+firstPlace).has("img").length) return;
+  $("div.box#"+firstPlace).addClass("drop highlight");
     if(place.charAt(1) == 2){
       const secondPlace = place.charAt(0)+(parseInt(place.charAt(1))+2);
-      $("div.box#"+firstPlace).addClass("drop highlight")
+      if($("div.box#"+secondPlace).has("img").length) return;  
       $("div.box#"+secondPlace).addClass("drop highlight")
-    } else {
-      $("div.box#"+firstPlace).addClass("drop highlight")
     }
 }
 
@@ -36,13 +35,14 @@ function WhiteRookMovement(place){
     if($("div.box#"+placeColumn+index+" img").hasClass("black")) loop = false;//Siehe oben
     $("div.box#"+placeColumn+index).addClass("drop highlight")    
   }//für die negative Y-Achse
+  loop = true;
   placeColumn = place.charCodeAt(0)
   for (let index = placeColumn-1; index >= 97 && loop; index--) {
     if($("div.box#"+String.fromCharCode(index)+placeRow+" img").hasClass("white")) break;//Wenn es die eigenen Figuren sind, soll er aufhören
     if($("div.box#"+String.fromCharCode(index)+placeRow+" img").hasClass("black")) loop = false;//Wenn es eine Gegnerische Figur ist, soll er nur auf ihn draufgehen
     $("div.box#"+String.fromCharCode(index)+placeRow).addClass("drop highlight")    
   }//für die linke X-Achse
-  loop= true;
+  loop = true;
   for (let index = placeColumn+1; index <= 104 && loop; index++) {
     if($("div.box#"+String.fromCharCode(index)+placeRow+" img").hasClass("white")) break;//Siehe oben
     if($("div.box#"+String.fromCharCode(index)+placeRow+" img").hasClass("black")) loop = false;//Siehe oben
@@ -170,5 +170,42 @@ function BlackQueenMovement(place){
   BlackBishopMovement(place);
 }
 
+function WhiteKingMovement(place){
+  const placeRow = parseInt(place.charAt(1));
+  const placeColumn = place.charCodeAt(0);
+  for (let index = -1; index < 2; index++) {
+    if(placeRow - index == 0 || placeRow - index == 9) continue;
+    for (let j = -1; j < 2; j++) {
+      if(placeColumn - j == 96 || placeColumn - j == 105) continue;
+      if($("div.box#"+String.fromCharCode(placeColumn - j)+(placeRow - index)+" img").hasClass("white")) continue;
+      $("div.box#"+String.fromCharCode(placeColumn - j)+(placeRow - index)).addClass("drop highlight") 
+    }
+  }
+}
+
+function BlackKingMovement(place){
+  const placeRow = parseInt(place.charAt(1));
+  const placeColumn = place.charCodeAt(0);
+  for (let index = -1; index < 2; index++) {
+    if(placeRow - index == 0 || placeRow - index == 9) continue;
+    for (let j = -1; j < 2; j++) {
+      if(placeColumn - j == 96 || placeColumn - j == 105) continue;
+      if($("div.box#"+String.fromCharCode(placeColumn - j)+(placeRow - index)+" img").hasClass("black")) continue;
+      $("div.box#"+String.fromCharCode(placeColumn - j)+(placeRow - index)).addClass("drop highlight") 
+    }
+  }
+}
+
+function WhiteKnightMovement(place){
+  const placeRow = parseInt(place.charAt(1));
+  let placeColumn = place.charCodeAt(0);
+}
+
+function BlackKnightMovement(place){
+  const placeRow = parseInt(place.charAt(1));
+  let placeColumn = place.charCodeAt(0);
+}
+
 export {BlackPawnMove, WhitePawnMovement, BlackRookMovement, WhiteRookMovement, WhiteBishopMovement,
-BlackBishopMovement, WhiteQueenMovement, BlackQueenMovement}
+BlackBishopMovement, WhiteQueenMovement, BlackQueenMovement, WhiteKingMovement, BlackKingMovement,
+WhiteKnightMovement, BlackKnightMovement}

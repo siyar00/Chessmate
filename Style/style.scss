@@ -24,11 +24,19 @@ div.chess-row{
 
 .black-box {
   background-color: rgb(202, 128, 76);
+  &.highlight{
+    background: radial-gradient(ellipse, rgb(202, 128, 76), rgb(202, 128, 76), #ff0707)  !important;
+  }
 }
 
 .white-box {
   background-color: rgb(228, 185, 154);
+  &.highlight{
+    background: radial-gradient(ellipse , rgb(228, 185, 154), rgb(228, 185, 154), #ff0707)  !important;
+  }
 }
+
+
 
 .unselectable {
   -webkit-user-select: none;
@@ -37,10 +45,6 @@ div.chess-row{
   -ms-user-select: none;
   user-select: none;
 }//Damit das markieren nicht funktioniert
-
-.highlight{
-  background-color: #ffb50784 !important;
-}
 
 @media (max-width: 550px) {
     $imageSize: 40rem;

@@ -1,5 +1,6 @@
 import {BlackPawnMove, WhitePawnMovement, BlackRookMovement, WhiteRookMovement, BlackBishopMovement, 
-  WhiteBishopMovement, WhiteQueenMovement, BlackQueenMovement} from './movement.js'
+  WhiteBishopMovement, WhiteQueenMovement, BlackQueenMovement, WhiteKingMovement, BlackKingMovement,
+  WhiteKnightMovement, BlackKnightMovement} from './movement.js'
 
 //Speichere die FEN in die Datenbank immer wieder rein für den jeweiligen User
 String.prototype.replaceAt = function(index, replacement) {
@@ -33,7 +34,7 @@ const rows = new Map([
 ])
 
 // var FEN = "rnbqkbnr/pppppppp/11111111/11111111/11111111/11111111/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-var FEN = "11111111/11111111/11111111/1111Qq11/11111111/11111111/11111111/11111111 w KQkq - 0 1";
+var FEN = "11111111/11111111/11111111/111K1k11/11111111/11111111/11111111/11111111 w KQkq - 0 1";
 
 var mousedown;
 
@@ -150,6 +151,7 @@ function figureMovement (figure, place) {
   $("div.box").removeClass("drop")
   switch(figure){
     case "k":
+      BlackKingMovement(place);
       break;
     case "q":
       BlackQueenMovement(place);
@@ -158,6 +160,7 @@ function figureMovement (figure, place) {
       BlackBishopMovement(place);
       break;
     case "n":
+      BlackKnightMovement(place);
       break;
     case "r":
       BlackRookMovement(place);
@@ -166,6 +169,7 @@ function figureMovement (figure, place) {
       BlackPawnMove(place);
       break;
     case "K":
+      WhiteKingMovement(place);
       break;
     case "Q":
       WhiteQueenMovement(place)
@@ -174,6 +178,7 @@ function figureMovement (figure, place) {
       WhiteBishopMovement(place);
       break;
     case "N":
+      WhiteKnightMovement(place);
       break;
     case "R":
       WhiteRookMovement(place);
