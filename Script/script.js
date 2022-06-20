@@ -3,9 +3,6 @@ import {BlackPawnMove, WhitePawnMovement, BlackRookMovement, WhiteRookMovement, 
   WhiteKnightMovement, BlackKnightMovement} from './movement.js'
 
 //Speichere die FEN in die Datenbank immer wieder rein für den jeweiligen User
-String.prototype.replaceAt = function(index, replacement) {
-  return this.substring(0, index) + replacement + this.substring(index + replacement.length);
-}
 
 const chesspieces = new Map([
   ["k", "Images/king-black.png"],
@@ -34,9 +31,7 @@ const rows = new Map([
 ])
 
 // var FEN = "rnbqkbnr/pppppppp/11111111/11111111/11111111/11111111/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-var FEN = "11111111/11111111/11111111/111N1n11/11111111/11111111/11111111/11111111 w KQkq - 0 1";
-
-var mousedown;
+var FEN = "rnbqkbnr/pppppppp/11111111/11111111/11111p11/11111111/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
 function addFigureToRow(row, column, figure){
   let tempFigures = row.split("")
@@ -55,33 +50,55 @@ function deleteMovedFigure(row, column){
 var fenBoard;
 $(document).ready(fenBoard = () => {
   for (const i in $("div.box")) {
-    $("div.box").eq(i).html('<div class="dragdrop draghandle"></div>')
+    $("div.box").eq(i).html('<div class="dragdrop"></div>')
     $("div.box").eq(i).addClass("drop");
     $("div.box").eq(i).children().draggable({
       revert: true,
       placeholder: false,
       droptarget: "div.drop",
-      handle: "img",
       drop: function (evt, droptarget) {
         $(".highlight").removeClass("highlight")
         $(this).appendTo(droptarget).draggable();
         let fen = FEN.split(" ");
         let board = fen[0].split("/");
-        let row = parseInt(evt.target.id.charAt(1))
-        let column = evt.target.id.charAt(0).toString();
+        const row = parseInt(droptarget.id.charAt(1))
+        const column = droptarget.id.charAt(0).toString();
+        const rowLast = parseInt(droptarget.lastChild.id.charAt(1))
+        const columnLast = droptarget.lastChild.id.charAt(0).toString()
         var figure = this.children().attr("id");
-        board[row-1] = addFigureToRow(board[row-1], column, figure);//Ändern der Figur in der Reihe, wenn es bewegt wird
-        
-        row = parseInt(evt.target.lastChild.id.charAt(1))
-        column = evt.target.lastChild.id.charAt(0).toString();
-        board[row-1] = deleteMovedFigure(board[row-1], column)
+        if(figure == "p" && fen[3] != "-" && column != columnLast) { // En-Passent für Schwarz
+          $("div#"+column+(row-1)+" img").remove()
+          board[row-2] = deleteMovedFigure(board[row-2], column)//Löschen der geschlagenen Figur im FEN
+        }
+        if(figure == "P" && fen[3] != "-" && column != columnLast) { // En-Passent für Weiß
+          $("div#"+column+(row+1)+" img").remove()
+          board[row] = deleteMovedFigure(board[row], column)//Löschen der geschlagenen Figur im FEN
+        }
+        fen[3] = "-";
+        if(figure == "P" && row == 5) fen[3] = column+6
+        if(figure == "p" && row == 4) fen[3] = column+3
+
+        board[row-1] = addFigureToRow(board[row-1], column, figure);//Hinzufügen der Figur in der neuen Reihe im FEN
+        board[rowLast-1] = deleteMovedFigure(board[rowLast-1], columnLast)//Löschen der bewegten Figur im FEN
+
+        {
+          let zuege = parseInt(fen[5])
+          if(figure == "P" || figure == "p") zuege = 0;
+          if(zuege == 100){
+            $(".drop").removeClass("drop")
+            $(".dragdrop").draggable("destroy")
+            return;
+          }
+          fen[5] = zuege + 1
+        }// Halbzüge zählen
 
         fen[0] = board.join("/")
         FEN = fen.join(" ")
         if(fen[1] == "w") FEN = FEN.replace("w", "s")
         else FEN = FEN.replace("s", "w")
         fenBoard()
-      }})
+      }
+    })
   }
 
   let fen = FEN.split(" ");
@@ -143,7 +160,6 @@ $(document).ready(fenBoard = () => {
   } else {
     $("img.white").parent().unbind()
   }
-  // console.log(board);
 });
 
 function figureMovement (figure, place) {
@@ -163,10 +179,10 @@ function figureMovement (figure, place) {
       BlackKnightMovement(place);
       break;
     case "r":
-      BlackRookMovement(place);
+      FEN = BlackRookMovement(place, FEN);
       break;
     case "p":
-      BlackPawnMove(place);
+      FEN = BlackPawnMove(place, FEN);
       break;
     case "K":
       WhiteKingMovement(place);
@@ -181,10 +197,10 @@ function figureMovement (figure, place) {
       WhiteKnightMovement(place);
       break;
     case "R":
-      WhiteRookMovement(place);
+      FEN = WhiteRookMovement(place, FEN);
       break;
     case "P":
-      WhitePawnMovement(place);
+      FEN = WhitePawnMovement(place, FEN);
       break;
   }
 }
@@ -197,9 +213,6 @@ $(document).ready(function () {
     revert: true,
     placeholder: false,
     droptarget: "div.drop",
-    // update: $(document).mousedown(function(event){
-    //   console.log(event, this)
-    // }),
     drop: function (evt, droptarget) {
       $(this).appendTo(droptarget).draggable();
     },
@@ -207,7 +220,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(()=>{
-  $("button").click(function(){
+  $("#btn").click(function(){
     FEN = "rnbqkbnr/pppppppp/11111111/11111111/11111111/11111111/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
     $("div.highlight").removeClass("highlight")
     fenBoard();
@@ -220,5 +233,4 @@ $(document).ready(()=>{
 //     });
 // });//Damit Rechtsklicken nicht auf dem Schachbrett funktioniert
 
-
-export {fenBoard, figureMovement};
+export {fenBoard, figureMovement, FEN};

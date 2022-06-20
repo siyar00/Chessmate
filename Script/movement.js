@@ -1,26 +1,62 @@
-function WhitePawnMovement(place){
+function WhitePawnMovement(place, FEN){
   const firstPlace = place.charAt(0)+(parseInt(place.charAt(1))-1);
-  if($("div.box#"+firstPlace).has("img").length) return;  
+  const fen = FEN.split(" ");
+  const fenColumn = fen[3].charCodeAt(0) 
+  const placeRow = parseInt(place.charAt(1)) - 1;
+  const placeColumn = place.charCodeAt(0);
+
+  if($("div.box#"+String.fromCharCode(placeColumn+1)+placeRow+" img").hasClass("black")
+    || ($("div.box#"+String.fromCharCode(placeColumn+1)+(placeRow+1)+" img").hasClass("black") // Wahr-> EnPassent möglich
+    && fen[3] != "-" && (fenColumn+1 == placeColumn || fenColumn-1 == placeColumn))) 
+    $("div.box#"+String.fromCharCode(placeColumn+1)+placeRow).addClass("drop highlight")//Rechter Bauernschlag
+
+  if(placeColumn-1 != 96)
+    if($("div.box#"+String.fromCharCode(placeColumn-1)+placeRow+" img").hasClass("black")
+      || ($("div.box#"+String.fromCharCode(placeColumn-1)+(placeRow+1)+" img").hasClass("black") 
+      && fen[3] != "-" && (fenColumn+1 == placeColumn || fenColumn-1 == placeColumn))) 
+      $("div.box#"+String.fromCharCode(placeColumn-1)+placeRow).addClass("drop highlight")//Linker Bauernschlag
+
+  if($("div.box#"+firstPlace).has("img").length) return FEN;//Kann sich nicht weiter bewegen, weil Figur vor ihm steht
+
   $("div.box#"+firstPlace).addClass("drop highlight")
     if(place.charAt(1) == 7){
       const secondPlace = place.charAt(0)+(parseInt(place.charAt(1))-2);
-      if($("div.box#"+secondPlace).has("img").length) return;  
+      if($("div.box#"+secondPlace).has("img").length) return FEN;  
       $("div.box#"+secondPlace).addClass("drop highlight")
     }
+    return FEN;
 }
   
-function BlackPawnMove(place){
+function BlackPawnMove(place, FEN){
   const firstPlace = place.charAt(0)+(parseInt(place.charAt(1))+1);
-  if($("div.box#"+firstPlace).has("img").length) return;
+  const fen = FEN.split(" ");
+  const fenColumn = fen[3].charCodeAt(0) 
+  const placeRow = parseInt(place.charAt(1)) + 1;
+  const placeColumn = place.charCodeAt(0);
+
+  if($("div.box#"+String.fromCharCode(placeColumn+1)+placeRow+" img").hasClass("white") 
+    || ($("div.box#"+String.fromCharCode(placeColumn+1)+(placeRow-1)+" img").hasClass("white") 
+    && fen[3] != "-" && (fenColumn+1 == placeColumn || fenColumn-1 == placeColumn))) 
+    $("div.box#"+String.fromCharCode(placeColumn+1)+placeRow).addClass("drop highlight")
+
+  if(placeColumn-1 != 96)
+    if($("div.box#"+String.fromCharCode(placeColumn-1)+placeRow+" img").hasClass("white")
+      || ($("div.box#"+String.fromCharCode(placeColumn-1)+(placeRow-1)+" img").hasClass("white") 
+      && fen[3] != "-" && (fenColumn+1 == placeColumn || fenColumn-1 == placeColumn))) 
+      $("div.box#"+String.fromCharCode(placeColumn-1)+placeRow).addClass("drop highlight")
+  
+  if($("div.box#"+firstPlace).has("img").length) return FEN;
+
   $("div.box#"+firstPlace).addClass("drop highlight");
     if(place.charAt(1) == 2){
       const secondPlace = place.charAt(0)+(parseInt(place.charAt(1))+2);
-      if($("div.box#"+secondPlace).has("img").length) return;  
+      if($("div.box#"+secondPlace).has("img").length) return FEN;  
       $("div.box#"+secondPlace).addClass("drop highlight")
     }
+    return FEN;
 }
 
-function WhiteRookMovement(place){
+function WhiteRookMovement(place, FEN){
   const placeRow = parseInt(place.charAt(1));
   let placeColumn = place.charAt(0);
   let loop = true;
@@ -48,9 +84,10 @@ function WhiteRookMovement(place){
     if($("div.box#"+String.fromCharCode(index)+placeRow+" img").hasClass("black")) loop = false;//Siehe oben
     $("div.box#"+String.fromCharCode(index)+placeRow).addClass("drop highlight")    
   }//für die rechte X-Achse
+  return FEN;
 }
   
-function BlackRookMovement(place){
+function BlackRookMovement(place, FEN){
   const placeRow = parseInt(place.charAt(1));
   let placeColumn = place.charAt(0);
   let loop = true;
@@ -78,6 +115,7 @@ function BlackRookMovement(place){
     if($("div.box#"+String.fromCharCode(index)+placeRow+" img").hasClass("white")) loop = false;//Siehe oben
     $("div.box#"+String.fromCharCode(index)+placeRow).addClass("drop highlight")    
   }
+  return FEN;
 }
 
 function WhiteBishopMovement(place){
