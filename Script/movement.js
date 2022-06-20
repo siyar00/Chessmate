@@ -199,11 +199,69 @@ function BlackKingMovement(place){
 function WhiteKnightMovement(place){
   const placeRow = parseInt(place.charAt(1));
   let placeColumn = place.charCodeAt(0);
+  for (let index = -2; index < 3; index++) {
+    if(placeRow + index <= 0 || placeRow + index >= 9 || index == 0) continue;
+    let loop = true;
+    if (index == -2 || index == 2) {
+      if(placeColumn - 1 == 96) loop = false;
+      if(loop){
+        if($("div.box#"+String.fromCharCode(placeColumn - 1)+(placeRow + index)+" img").hasClass("white")) loop = false;
+        else $("div.box#"+String.fromCharCode(placeColumn - 1)+(placeRow + index)).addClass("drop highlight")
+      } 
+      loop = true;
+      if(placeColumn + 1 == 105) loop = false;
+      if(loop){
+        if($("div.box#"+String.fromCharCode(placeColumn + 1)+(placeRow + index)+" img").hasClass("white")) loop = false;
+        else $("div.box#"+String.fromCharCode(placeColumn + 1)+(placeRow + index)).addClass("drop highlight")
+      } 
+    } else if (index == -1 || index == 1) {
+      if(placeColumn - 2 == 96) loop = false;
+      if(loop){
+        if($("div.box#"+String.fromCharCode(placeColumn - 2)+(placeRow + index)+" img").hasClass("white")) loop = false;
+        else $("div.box#"+String.fromCharCode(placeColumn - 2)+(placeRow + index)).addClass("drop highlight")
+      } 
+      loop = true;
+      if(placeColumn + 2 == 105) loop = false; 
+      if(loop){
+        if($("div.box#"+String.fromCharCode(placeColumn + 2)+(placeRow + index)+" img").hasClass("white")) loop = false;
+        else $("div.box#"+String.fromCharCode(placeColumn + 2)+(placeRow + index)).addClass("drop highlight")
+      } 
+    }
+  }
 }
 
 function BlackKnightMovement(place){
   const placeRow = parseInt(place.charAt(1));
   let placeColumn = place.charCodeAt(0);
+  for (let index = -2; index < 3; index++) {
+    if(placeRow + index <= 0 || placeRow + index >= 9 || index == 0) continue;
+    let loop = true;
+    if (index == -2 || index == 2) {
+      if(placeColumn - 1 == 96) loop = false;
+      if(loop){
+        if($("div.box#"+String.fromCharCode(placeColumn - 1)+(placeRow + index)+" img").hasClass("black")) loop = false;
+        else $("div.box#"+String.fromCharCode(placeColumn - 1)+(placeRow + index)).addClass("drop highlight")
+      } 
+      loop = true;
+      if(placeColumn + 1 == 105) loop = false;
+      if(loop){
+        if($("div.box#"+String.fromCharCode(placeColumn + 1)+(placeRow + index)+" img").hasClass("black")) loop = false;
+        else $("div.box#"+String.fromCharCode(placeColumn + 1)+(placeRow + index)).addClass("drop highlight")
+      } 
+    } else if (index == -1 || index == 1) {
+      if(placeColumn - 2 == 96) loop = false;
+      if(loop){
+        if($("div.box#"+String.fromCharCode(placeColumn - 2)+(placeRow + index)+" img").hasClass("black")) loop = false;
+        else $("div.box#"+String.fromCharCode(placeColumn - 2)+(placeRow + index)).addClass("drop highlight")
+      } 
+      loop = true;
+      if(placeColumn + 2 == 105) loop = false; 
+      if(loop){
+        if($("div.box#"+String.fromCharCode(placeColumn + 2)+(placeRow + index)+" img").hasClass("black")) loop = false;
+        else $("div.box#"+String.fromCharCode(placeColumn + 2)+(placeRow + index)).addClass("drop highlight")
+      } 
+    }
+  }
 }
 
 export {BlackPawnMove, WhitePawnMovement, BlackRookMovement, WhiteRookMovement, WhiteBishopMovement,
