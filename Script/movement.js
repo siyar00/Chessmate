@@ -59,6 +59,7 @@ function BlackPawnMove(place, FEN){
 function WhiteRookMovement(place, FEN){
   const placeRow = parseInt(place.charAt(1));
   let placeColumn = place.charAt(0);
+
   let loop = true;
   for (let index = placeRow-1; index > 0 && loop; index--) {
     if($("div.box#"+placeColumn+index+" img").hasClass("white")) break;//Wenn es die eigenen Figuren sind, soll er aufhören
@@ -90,6 +91,7 @@ function WhiteRookMovement(place, FEN){
 function BlackRookMovement(place, FEN){
   const placeRow = parseInt(place.charAt(1));
   let placeColumn = place.charAt(0);
+
   let loop = true;
   for (let index = placeRow-1; index > 0 && loop; index--) {
     if($("div.box#"+placeColumn+index+" img").hasClass("black")) break;//Siehe WhiteRookMovement
@@ -208,9 +210,11 @@ function BlackQueenMovement(place){
   BlackBishopMovement(place);
 }
 
-function WhiteKingMovement(place){
+function WhiteKingMovement(place, FEN){
   const placeRow = parseInt(place.charAt(1));
   const placeColumn = place.charCodeAt(0);
+  const fen = FEN.split(" ")
+
   for (let index = -1; index < 2; index++) {
     if(placeRow - index == 0 || placeRow - index == 9) continue;
     for (let j = -1; j < 2; j++) {
@@ -219,11 +223,22 @@ function WhiteKingMovement(place){
       $("div.box#"+String.fromCharCode(placeColumn - j)+(placeRow - index)).addClass("drop highlight") 
     }
   }
+
+  if(fen[2].match(/Q/) != null){
+    if(!$("div.box#"+String.fromCharCode(placeColumn - 2)+(placeRow)+" img").length)
+      $("div.box#"+String.fromCharCode(placeColumn - 2)+(placeRow)).addClass("drop highlight")
+  }
+  if(fen[2].match(/K/) != null){
+    if(!$("div.box#"+String.fromCharCode(placeColumn + 2)+(placeRow)+" img").length)
+      $("div.box#"+String.fromCharCode(placeColumn + 2)+(placeRow)).addClass("drop highlight")
+  }
 }
 
-function BlackKingMovement(place){
+function BlackKingMovement(place, FEN){
   const placeRow = parseInt(place.charAt(1));
   const placeColumn = place.charCodeAt(0);
+  const fen = FEN.split(" ")
+
   for (let index = -1; index < 2; index++) {
     if(placeRow - index == 0 || placeRow - index == 9) continue;
     for (let j = -1; j < 2; j++) {
@@ -231,6 +246,15 @@ function BlackKingMovement(place){
       if($("div.box#"+String.fromCharCode(placeColumn - j)+(placeRow - index)+" img").hasClass("black")) continue;
       $("div.box#"+String.fromCharCode(placeColumn - j)+(placeRow - index)).addClass("drop highlight") 
     }
+  }
+
+  if(fen[2].match(/q/) != null){
+    if(!$("div.box#"+String.fromCharCode(placeColumn - 2)+(placeRow)+" img").length)
+      $("div.box#"+String.fromCharCode(placeColumn - 2)+(placeRow)).addClass("drop highlight")
+  }
+  if(fen[2].match(/k/) != null){
+    if(!$("div.box#"+String.fromCharCode(placeColumn + 2)+(placeRow)+" img").length)
+      $("div.box#"+String.fromCharCode(placeColumn + 2)+(placeRow)).addClass("drop highlight")
   }
 }
 
