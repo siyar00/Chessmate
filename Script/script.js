@@ -14,7 +14,7 @@ import {
 } from "./movement.js";
 
 var FEN = "rnbqkbnr/pppppppp/11111111/11111111/11111111/11111111/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-// var FEN = "r111k11r/11111111/11111111/11111111/11111111/11111111/11111111/R111K11R w KQkq - 0 1";
+// var FEN = "11111111/PPPPPPPP/11111111/11111111/11111111/11111111/pppppppp/11111111 w KQkq - 0 1";
 //Speichere die FEN in die Datenbank immer wieder rein für den jeweiligen User
 //Beim Remis eine bessere UI machen
 //Rochade schauen, dass man bei einem verlorenen Turm, der König keine Rochade spielen kann.
@@ -72,7 +72,7 @@ $(document).ready(
           revert: true,
           placeholder: false,
           droptarget: "div.drop",
-          drop: function (evt, droptarget) {
+          drop: async function (evt, droptarget) {
             $(".highlight").removeClass("highlight");
             $(this).appendTo(droptarget).draggable();
             let fen = FEN.split(" ");
@@ -82,20 +82,33 @@ $(document).ready(
             const rowLast = parseInt(droptarget.lastChild.id.charAt(1));
             const columnLast = droptarget.lastChild.id.charAt(0).toString();
             var figure = this.children().attr("id");
-            if (figure == "p" && fen[3] != "-" && column != columnLast) {
-              // En-Passent für Schwarz
+            {
+              let zuege = parseInt(fen[5]);
+              if (figure == "P" || figure == "p") zuege = 0;
+              if (zuege == 100) {
+                alert("Unentschieden! Das Spiel endet!")
+                $(".drop").removeClass("drop");
+                $(".dragdrop").draggable("destroy");
+                return;
+              }
+              fen[5] = zuege + 1;
+            } // Halbzüge zählen
+
+            {
+              if (figure == "p" && fen[3] != "-" && column != columnLast) {
               $("div#" + column + (row - 1) + " img").remove();
               board[row - 2] = deleteMovedFigure(board[row - 2], column); //Löschen der geschlagenen Figur im FEN
-            }
-            if (figure == "P" && fen[3] != "-" && column != columnLast) {
-              // En-Passent für Weiß
+              }//En-Passent schwarz
+              if (figure == "P" && fen[3] != "-" && column != columnLast) {
               $("div#" + column + (row + 1) + " img").remove();
               board[row] = deleteMovedFigure(board[row], column); //Löschen der geschlagenen Figur im FEN
-            }
-            fen[3] = "-";
+              }//En-Passent weiß 
+              fen[3] = "-";
+            }// En-Passent
 
             if (fen[2] != "-") {
               if (figure == "K") {
+                fen[2] = WhiteKingRochade(fen[2]);
                 if (droptarget.id == "c8") {
                   board[row - 1] = addFigureToRow(board[row - 1], "d", "R");
                   board[rowLast - 1] = deleteMovedFigure(
@@ -110,6 +123,7 @@ $(document).ready(
                   );
                 }
               } else if (figure == "k") {
+                fen[2] = BlackKingRochade(fen[2]);
                 if (droptarget.id == "c1") {
                   board[row - 1] = addFigureToRow(board[row - 1], "d", "r");
                   board[rowLast - 1] = deleteMovedFigure(
@@ -124,45 +138,35 @@ $(document).ready(
                   );
                 }
               }
+              else if (figure == "R")
+                fen[2] = WhiteRookRochade(fen[2], droptarget.lastChild.id);
+              else if (figure == "r")
+                fen[2] = BlackRookRochade(fen[2], droptarget.lastChild.id);
             } //Rochaden Bewegung des Turmes
 
             if (figure == "P" && row == 5) fen[3] = column + 6;
             if (figure == "p" && row == 4) fen[3] = column + 3;
-            if (figure == "K" && fen[2] != "-")
-              fen[2] = WhiteKingRochade(fen[2]);
-            if (figure == "k" && fen[2] != "-")
-              fen[2] = BlackKingRochade(fen[2]);
-            if (figure == "R" && fen[2] != "-")
-              fen[2] = WhiteRookRochade(fen[2], droptarget.lastChild.id);
-            if (figure == "r" && fen[2] != "-")
-              fen[2] = BlackRookRochade(fen[2], droptarget.lastChild.id);
 
-            if(figure == "P" && row == 1){
-
-            } else if(figure == "p" && row == 8){
-
-            } else {
-              board[row - 1] = addFigureToRow(board[row - 1], column, figure); //Hinzufügen der Figur in der neuen Reihe im FEN
-              board[rowLast - 1] = deleteMovedFigure(board[rowLast - 1], columnLast); //Löschen der bewegten Figur im FEN
-            }
-            
             {
-              let zuege = parseInt(fen[5]);
-              if (figure == "P" || figure == "p") zuege = 0;
-              if (zuege == 100) {
-                alert("Unentschieden! Das Spiel endet!")
-                $(".drop").removeClass("drop");
-                $(".dragdrop").draggable("destroy");
-                return;
-              }
-              fen[5] = zuege + 1;
-            } // Halbzüge zählen
+              if(figure == "P" && row == 1){
+                figure = await modal(0);
+                board[row - 1] = addFigureToRow(board[row - 1], column, figure); //Hinzufügen der Figur in der neuen Reihe im FEN
+                board[rowLast - 1] = deleteMovedFigure(board[rowLast - 1], columnLast);
+              } else if(figure == "p" && row == 8){
+                figure = await modal(1);
+                board[row - 1] = addFigureToRow(board[row - 1], column, figure); //Hinzufügen der Figur in der neuen Reihe im FEN
+                board[rowLast - 1] = deleteMovedFigure(board[rowLast - 1], columnLast);
+              } else {
+                board[row - 1] = addFigureToRow(board[row - 1], column, figure); //Hinzufügen der Figur in der neuen Reihe im FEN
+                board[rowLast - 1] = deleteMovedFigure(board[rowLast - 1], columnLast); //Löschen der bewegten Figur im FEN
+              } 
+            } // Allgemeine Figurenplatzänderung und Bauernverwandlung
 
             fen[0] = board.join("/");
             FEN = fen.join(" ");
             if (fen[1] == "w") FEN = FEN.replace("w", "s");
             else FEN = FEN.replace("s", "w");
-            console.log(FEN);
+            // console.log(FEN);
             fenBoard();
           },
         });
@@ -171,7 +175,7 @@ $(document).ready(
     let fen = FEN.split(" ");
     let board = fen[0].split("/");
     let i = -1;
-    $("img").remove();
+    $("div.box img").remove();
     for (const row of board) {
       for (const figur of row) {
         i++;
@@ -183,112 +187,52 @@ $(document).ready(
         $("div.box div").eq(i).attr("id", $("div.box").eq(i).attr("id"));
         switch (figur) {
           case "k":
-            $("div.box div")
-              .eq(i)
-              .html(
-                '<img id="k" class="black" src="' +
-                  chesspieces.get("k") +
-                  '" alt="Black King">'
-              );
+            $("div.box div").eq(i).html('<img id="k" class="black" src="' +
+                  chesspieces.get("k") +'" alt="Black King">');
             break;
           case "q":
-            $("div.box div")
-              .eq(i)
-              .html(
-                '<img id="q" class="black" src="' +
-                  chesspieces.get("q") +
-                  '" alt="Black Queen">'
-              );
+            $("div.box div").eq(i).html('<img id="q" class="black" src="' +
+                  chesspieces.get("q") +'" alt="Black Queen">');
             break;
           case "b":
-            $("div.box div")
-              .eq(i)
-              .html(
-                '<img id="b" class="black" src="' +
-                  chesspieces.get("b") +
-                  '" alt="Black Bishop">'
-              );
+            $("div.box div").eq(i).html('<img id="b" class="black" src="' +
+                  chesspieces.get("b") +'" alt="Black Bishop">');
             break;
           case "n":
-            $("div.box div")
-              .eq(i)
-              .html(
-                '<img id="n" class="black" src="' +
-                  chesspieces.get("n") +
-                  '" alt="Black Knight">'
-              );
+            $("div.box div").eq(i).html('<img id="n" class="black" src="' +
+                  chesspieces.get("n") +'" alt="Black Knight">');
             break;
           case "r":
-            $("div.box div")
-              .eq(i)
-              .html(
-                '<img id="r" class="black" src="' +
-                  chesspieces.get("r") +
-                  '" alt="Black Rook">'
-              );
+            $("div.box div").eq(i).html('<img id="r" class="black" src="' +
+                  chesspieces.get("r") +'" alt="Black Rook">');
             break;
           case "p":
-            $("div.box div")
-              .eq(i)
-              .html(
-                '<img id="p" class="black" src="' +
-                  chesspieces.get("p") +
-                  '" alt="Black Pawn">'
-              );
+            $("div.box div").eq(i).html('<img id="p" class="black" src="' +
+                  chesspieces.get("p") +'" alt="Black Pawn">');
             break;
           case "K":
-            $("div.box div")
-              .eq(i)
-              .html(
-                '<img id="K" class="white" src="' +
-                  chesspieces.get("K") +
-                  '" alt="White King">'
-              );
+            $("div.box div").eq(i).html('<img id="K" class="white" src="' +
+                  chesspieces.get("K") +'" alt="White King">');
             break;
           case "Q":
-            $("div.box div")
-              .eq(i)
-              .html(
-                '<img id="Q" class="white" src="' +
-                  chesspieces.get("Q") +
-                  '" alt="White Queen">'
-              );
+            $("div.box div").eq(i).html('<img id="Q" class="white" src="' +
+                  chesspieces.get("Q") +'" alt="White Queen">');
             break;
           case "B":
-            $("div.box div")
-              .eq(i)
-              .html(
-                '<img id="B" class="white" src="' +
-                  chesspieces.get("B") +
-                  '" alt="White Bishop">'
-              );
+            $("div.box div").eq(i).html('<img id="B" class="white" src="' +
+                  chesspieces.get("B") +'" alt="White Bishop">');
             break;
           case "N":
-            $("div.box div")
-              .eq(i)
-              .html(
-                '<img id="N" class="white" src="' +
-                  chesspieces.get("N") +
-                  '" alt="White Knight">'
-              );
+            $("div.box div").eq(i).html('<img id="N" class="white" src="' +
+                  chesspieces.get("N") +'" alt="White Knight">');
             break;
           case "R":
-            $("div.box div")
-              .eq(i)
-              .html(
-                '<img id="R" class="white" src="' +
-                  chesspieces.get("R") +
-                  '" alt="White Rook">'
-              );
+            $("div.box div").eq(i).html('<img id="R" class="white" src="' +
+                  chesspieces.get("R") +'" alt="White Rook">');
             break;
           case "P":
-            $("div.box div")
-              .eq(i)
-              .html(
-                '<img id="P" class="white" src="' +
-                  chesspieces.get("P") +
-                  '" alt="White Pawn">'
-              );
+            $("div.box div").eq(i).html('<img id="P" class="white" src="' +
+                  chesspieces.get("P") +'" alt="White Pawn">');
             break;
         }
       }
@@ -300,7 +244,7 @@ $(document).ready(
       $("img.white").parent().unbind();
     }
   })
-);
+); // "Main"
 
 function figureMovement(figure, place) {
   $("div.highlight").removeClass("highlight");
@@ -371,7 +315,7 @@ $(document).ready(() => {
 //   $(".chess-table").on("contextmenu", function(e) {
 //       return false;
 //     });
-// });//Damit Rechtsklicken nicht auf dem Schachbrett funktioniert
+// }) //Damit Rechtsklicken nicht auf dem Schachbrett funktioniert
 
 function WhiteKingRochade(fenRochade) {
   if (fenRochade.match(/Q/) != null && fenRochade.match(/K/) != null) {
@@ -415,6 +359,38 @@ function BlackRookRochade(fenRochade, id) {
   }
   if (fenRochade.length == 0) return "-";
   else return fenRochade;
+}
+
+function modal(color) {
+  $("div.modal-body").children().remove()
+  if(color){
+    $("div.modal-body").append(
+    '<img id="q" class="black chess-modal" src="' + chesspieces.get("q") +'" alt="Black Queen">'+
+    '<img id="b" class="black chess-modal" src="' + chesspieces.get("b") +'" alt="Black Bishop">'+
+    '<img id="n" class="black chess-modal" src="' + chesspieces.get("n") +'" alt="Black Knight">'+
+    '<img id="r" class="black chess-modal" src="' + chesspieces.get("r") +'" alt="Black Rook">');
+  } else {
+    $("div.modal-body").append(
+    '<img id="Q" class="white chess-modal" src="' + chesspieces.get("Q") +'" alt="White Queen">'+
+    '<img id="B" class="white chess-modal" src="' + chesspieces.get("B") +'" alt="White Bishop">'+
+    '<img id="N" class="white chess-modal" src="' + chesspieces.get("N") +'" alt="White Knight">'+
+    '<img id="R" class="white chess-modal" src="' + chesspieces.get("R") +'" alt="White Rook">');
+  }
+
+  return new Promise((resolve, reject) => {
+    // Get the modal
+    var modal = document.getElementById("myModal");
+    // Open the modal
+    modal.style.display = "block";
+    // Close modal            
+    document.querySelectorAll(".chess-modal").forEach( element => {
+        element.addEventListener("click", function(evt){
+        modal.style.display = "none";
+        resolve(evt.target.id)
+      })
+    })
+    
+  })
 }
 
 export { fenBoard, figureMovement, FEN };

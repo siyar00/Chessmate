@@ -9,20 +9,22 @@
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"
         integrity="sha256-6XMVI0zB8cRzfZjqKcD01PBsAy3FlDASrlC8SxCpInY=" crossorigin="anonymous"></script>
-    <!-- <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.js"
-        integrity="sha256-1PYCpx/EXA36KN1NKrK7auaTylVyk01D98R7Ccf04Bc=" crossorigin="anonymous"></script> -->    
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.js"
+        integrity="sha256-1PYCpx/EXA36KN1NKrK7auaTylVyk01D98R7Ccf04Bc=" crossorigin="anonymous"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
     <script src="Script/draganddrop.js" type="module"></script>
     <script src="Script/script.js" type="module/js"></script>
     <script src="Script/movement.js" type="module"></script>
-    <link href='Style/draganddrop.css' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="Style/style.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+    <link rel='stylesheet' href='Style/draganddrop.css' type='text/css'>
+    <link rel="stylesheet" href="Style/style.css" type='text/css'>
     <link rel="icon" href="Images/queen-black.png" type="image/x-icon">
     <link rel="apple-touch-icon-precomposed" type="image/x-icon" href="Images/queen-black.png">
     <title>Document</title>
 </head>
 
 <body>
-    <div class="chess-table unselectable">
+    <div class="chess-table unselectable container">
         <div class="chess-row">
             <div id="a1" class="box white-box drop"></div>
             <div id="b1" class="box black-box drop"></div>
@@ -104,18 +106,37 @@
             <div id="h8" class="box white-box drop"></div>
         </div>
     </div>
-<br>
+    <br>
     <button id="btn">Restart!</button>
 
-    <button class="btn btn-primary drag">Drag me</button>
+    <!-- <button class="btn btn-primary drag">Drag me</button>
     <button class="btn btn-primary draghandle">Drag my <strong class="handle">handle</strong></button>
     <button class="btn btn-primary dragdrop">Drag and Drop me</button>
     <span class="draggables">
-      <button>1</button>
-      <button>2</button>
-      <button>3</button>
-      <button>4</button>
-    </span>
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>4</button>
+    </span> -->
+
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Bauernverwandlung</h2>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <p>
+                    Wähle die Figur aus, in der sich der Bauern verwandeln soll!
+                </p>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
