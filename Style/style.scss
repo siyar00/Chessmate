@@ -1,5 +1,9 @@
 $imageSize: 50rem;
 
+* {
+  outline: green
+}
+
 div.chess-table.unselectable.container{
   div.chess-row{
     height: $imageSize / 12;

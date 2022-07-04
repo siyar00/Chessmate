@@ -1,3 +1,7 @@
+* {
+  outline: green;
+}
+
 div.chess-table.unselectable.container div.chess-row {
   height: 4.16667rem;
 }

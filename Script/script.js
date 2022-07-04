@@ -1,5 +1,5 @@
 import {
-  BlackPawnMove,
+  BlackPawnMovement,
   WhitePawnMovement,
   BlackRookMovement,
   WhiteRookMovement,
@@ -13,8 +13,8 @@ import {
   BlackKnightMovement,
 } from "./movement.js";
 
-var FEN = "rnbqkbnr/pppppppp/11111111/11111111/11111111/11111111/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-// var FEN = "11111111/PPPPPPPP/11111111/11111111/11111111/11111111/pppppppp/11111111 w KQkq - 0 1";
+// var FEN = "rnbqkbnr/pppppppp/11111111/11111111/11111111/11111111/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+var FEN = "r111k11r/1pppppp1/11111111/11111111/11111111/11111111/1PPPPPP1/R111K11R w KQkq - 0 1";
 //Speichere die FEN in die Datenbank immer wieder rein für den jeweiligen User
 //Beim Remis eine bessere UI machen
 //Rochade schauen, dass man bei einem verlorenen Turm, der König keine Rochade spielen kann.
@@ -95,18 +95,28 @@ $(document).ready(
             } // Halbzüge zählen
 
             {
-              if (figure == "p" && fen[3] != "-" && column != columnLast) {
-              $("div#" + column + (row - 1) + " img").remove();
-              board[row - 2] = deleteMovedFigure(board[row - 2], column); //Löschen der geschlagenen Figur im FEN
+              if (figure == "p" && droptarget.id == fen[3]) {
+                $("div#" + column + (row - 1) + " img").remove();
+                board[row - 2] = deleteMovedFigure(board[row - 2], column); //Löschen der geschlagenen Figur im FEN
               }//En-Passent schwarz
-              if (figure == "P" && fen[3] != "-" && column != columnLast) {
-              $("div#" + column + (row + 1) + " img").remove();
-              board[row] = deleteMovedFigure(board[row], column); //Löschen der geschlagenen Figur im FEN
+              if (figure == "P" && droptarget.id == fen[3]) {
+                $("div#" + column + (row + 1) + " img").remove();
+                board[row] = deleteMovedFigure(board[row], column); //Löschen der geschlagenen Figur im FEN
               }//En-Passent weiß 
               fen[3] = "-";
             }// En-Passent
 
             if (fen[2] != "-") {
+              if(droptarget.firstChild.firstChild != null){
+                const destroyFigure = droptarget.firstChild.firstChild.id
+                if(destroyFigure == "r"  && (droptarget.id == "a1" || droptarget.id == "h1")){
+                  fen[2] = BlackRookRochade(fen[2], droptarget.id)
+                } else if(destroyFigure == "R"  && (droptarget.id == "a8" || droptarget.id == "h8")){
+                  fen[2] = WhiteRookRochade(fen[2], droptarget.id)
+                }
+              }
+              
+
               if (figure == "K") {
                 fen[2] = WhiteKingRochade(fen[2]);
                 if (droptarget.id == "c8") {
@@ -164,10 +174,13 @@ $(document).ready(
 
             fen[0] = board.join("/");
             FEN = fen.join(" ");
-            if (fen[1] == "w") FEN = FEN.replace("w", "s");
-            else FEN = FEN.replace("s", "w");
-            // console.log(FEN);
+            if (fen[1] == "w")  FEN = FEN.replace("w", "s");
+            else  FEN = FEN.replace("s", "w");
+            console.log(FEN);
             fenBoard();
+            
+            // if(fen[1] == "w") CheckmateBlack();
+            // else CheckmateWhite()
           },
         });
     }
@@ -266,7 +279,7 @@ function figureMovement(figure, place) {
       FEN = BlackRookMovement(place, FEN);
       break;
     case "p":
-      FEN = BlackPawnMove(place, FEN);
+      FEN = BlackPawnMovement(place, FEN);
       break;
     case "K":
       WhiteKingMovement(place, FEN);
@@ -391,6 +404,53 @@ function modal(color) {
     })
     
   })
+}
+
+function CheckmateWhite(){
+  $("img#p").each((index, element) => BlackPawnMovement($(element).parent().attr("id"), FEN, true))
+  $("img#n").each((index, element) => BlackKnightMovement($(element).parent().attr("id"), true))
+  $("img#b").each((index, element) => BlackBishopMovement($(element).parent().attr("id"), true))
+  $("img#r").each((index, element) => BlackRookMovement($(element).parent().attr("id"), FEN, true))
+  BlackQueenMovement($("#q").parent().attr("id"), true)
+
+  if($("div.box.threat img").hasClass("black")){
+    if($("div.KingCheck").hasClass("highlight"))
+
+
+    $("div.box.threat img").each((index, figure) => {
+      switch($(figure).attr("id")){
+        case "q":
+          BlackQueenMovement($("#q").parent().attr("id"))
+          break;
+        case "b":
+          BlackBishopMovement(place);
+          break;
+        case "n":
+          BlackKnightMovement(place);
+          break;
+        case "r":
+          FEN = BlackRookMovement(place, FEN);
+          break;
+        case "p":
+          FEN = BlackPawnMovement(place, FEN);
+          break;
+    }
+  }) 
+}
+  $("div.box").removeClass("highlight drop");
+}
+
+function CheckmateBlack(){
+  WhiteQueenMovement($("#Q").parent().attr("id"), true)
+  $("img#N").each((index, element) => WhiteKnightMovement($(element).parent().attr("id"), true))
+  $("img#B").each((index, element) => WhiteBishopMovement($(element).parent().attr("id"), true))
+  $("img#R").each((index, element) => WhiteRookMovement($(element).parent().attr("id"), FEN, true))
+  $("img#P").each((index, element) => WhitePawnMovement($(element).parent().attr("id"), FEN, true))
+
+  if($("div.box.threat img").hasClass("white")){
+    console.log("Check Black")
+  } 
+  $("div.box").removeClass("highlight drop");
 }
 
 export { fenBoard, figureMovement, FEN };

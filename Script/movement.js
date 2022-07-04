@@ -1,4 +1,4 @@
-function WhitePawnMovement(place, FEN){
+function WhitePawnMovement(place, FEN, check = false){
   const firstPlace = place.charAt(0)+(parseInt(place.charAt(1))-1);
   const fen = FEN.split(" ");
   const fenColumn = fen[3].charCodeAt(0) 
@@ -7,14 +7,22 @@ function WhitePawnMovement(place, FEN){
 
   if($("div.box#"+String.fromCharCode(placeColumn+1)+placeRow+" img").hasClass("black")
     || ($("div.box#"+String.fromCharCode(placeColumn+1)+(placeRow+1)+" img").hasClass("black") // Wahr-> EnPassent möglich
-    && fen[3] != "-" && (fenColumn+1 == placeColumn || fenColumn-1 == placeColumn))) 
-    $("div.box#"+String.fromCharCode(placeColumn+1)+placeRow).addClass("drop highlight")//Rechter Bauernschlag
+    && fen[3] != "-" && (fenColumn+1 == placeColumn || fenColumn-1 == placeColumn))){
+      $("div.box#"+String.fromCharCode(placeColumn+1)+placeRow).addClass("drop highlight")//Rechter Bauernschlag
+    } 
 
-  if(placeColumn-1 != 96)
+  if(placeColumn-1 != 96){
     if($("div.box#"+String.fromCharCode(placeColumn-1)+placeRow+" img").hasClass("black")
       || ($("div.box#"+String.fromCharCode(placeColumn-1)+(placeRow+1)+" img").hasClass("black") 
-      && fen[3] != "-" && (fenColumn+1 == placeColumn || fenColumn-1 == placeColumn))) 
-      $("div.box#"+String.fromCharCode(placeColumn-1)+placeRow).addClass("drop highlight")//Linker Bauernschlag
+      && fen[3] != "-" && (fenColumn+1 == placeColumn || fenColumn-1 == placeColumn))){
+              $("div.box#"+String.fromCharCode(placeColumn-1)+placeRow).addClass("drop highlight")//Linker Bauernschlag
+    }
+  }
+
+  if(check && $("#k").parent().parent().hasClass("highlight")){
+    $("div.box#"+place).addClass("threat")
+    $(".highlight").removeClass("highlight")
+  }
 
   if($("div.box#"+firstPlace).has("img").length) return FEN;//Kann sich nicht weiter bewegen, weil Figur vor ihm steht
 
@@ -27,7 +35,7 @@ function WhitePawnMovement(place, FEN){
     return FEN;
 }
   
-function BlackPawnMove(place, FEN){
+function BlackPawnMovement(place, FEN, check = false){
   const firstPlace = place.charAt(0)+(parseInt(place.charAt(1))+1);
   const fen = FEN.split(" ");
   const fenColumn = fen[3].charCodeAt(0) 
@@ -43,8 +51,13 @@ function BlackPawnMove(place, FEN){
     if($("div.box#"+String.fromCharCode(placeColumn-1)+placeRow+" img").hasClass("white")
       || ($("div.box#"+String.fromCharCode(placeColumn-1)+(placeRow-1)+" img").hasClass("white") 
       && fen[3] != "-" && (fenColumn+1 == placeColumn || fenColumn-1 == placeColumn))) 
-      $("div.box#"+String.fromCharCode(placeColumn-1)+placeRow).addClass("drop highlight")
+      {$("div.box#"+String.fromCharCode(placeColumn-1)+placeRow).addClass("drop highlight")}
   
+  if(check && $("#K").parent().parent().hasClass("highlight")){
+    $("div.box#"+place).addClass("threat")
+    $(".highlight").removeClass("highlight")
+  }
+      
   if($("div.box#"+firstPlace).has("img").length) return FEN;
 
   $("div.box#"+firstPlace).addClass("drop highlight");
@@ -56,7 +69,7 @@ function BlackPawnMove(place, FEN){
     return FEN;
 }
 
-function WhiteRookMovement(place, FEN){
+function WhiteRookMovement(place, FEN, check = false){
   const placeRow = parseInt(place.charAt(1));
   let placeColumn = place.charAt(0);
 
@@ -85,10 +98,16 @@ function WhiteRookMovement(place, FEN){
     if($("div.box#"+String.fromCharCode(index)+placeRow+" img").hasClass("black")) loop = false;//Siehe oben
     $("div.box#"+String.fromCharCode(index)+placeRow).addClass("drop highlight")    
   }//für die rechte X-Achse
+
+  if(check && $("#k").parent().parent().hasClass("highlight")){
+    $("div.box#"+place).addClass("threat")
+    $(".highlight").removeClass("highlight")
+  }
+
   return FEN;
 }
   
-function BlackRookMovement(place, FEN){
+function BlackRookMovement(place, FEN, check = false){
   const placeRow = parseInt(place.charAt(1));
   let placeColumn = place.charAt(0);
 
@@ -117,10 +136,16 @@ function BlackRookMovement(place, FEN){
     if($("div.box#"+String.fromCharCode(index)+placeRow+" img").hasClass("white")) loop = false;//Siehe oben
     $("div.box#"+String.fromCharCode(index)+placeRow).addClass("drop highlight")    
   }
+
+  if(check && $("#K").parent().parent().hasClass("highlight")){
+    $("div.box#"+place).addClass("threat")
+    $(".highlight").removeClass("highlight")
+  }
+
   return FEN;
 }
 
-function WhiteBishopMovement(place){
+function WhiteBishopMovement(place, check = false){
   const placeRow = parseInt(place.charAt(1));
   let placeColumn = place.charCodeAt(0);
   let loop = true;
@@ -158,9 +183,15 @@ function WhiteBishopMovement(place){
     if($("div.box#"+String.fromCharCode(placeColumn)+index+" img").hasClass("black")) loop = false;//Siehe WhiteRookMovement
     $("div.box#"+String.fromCharCode(placeColumn)+index).addClass("drop highlight")    
   }
+
+  if(check && $("#k").parent().parent().hasClass("highlight")){
+    $("div.box#"+place).addClass("threat")
+    $(".highlight").removeClass("highlight")
+  }
+  
 }
 
-function BlackBishopMovement(place){
+function BlackBishopMovement(place, check = false){
   const placeRow = parseInt(place.charAt(1));
   let placeColumn = place.charCodeAt(0);
   let loop = true;
@@ -198,19 +229,24 @@ function BlackBishopMovement(place){
     if($("div.box#"+String.fromCharCode(placeColumn)+index+" img").hasClass("white")) loop = false;//Siehe WhiteRookMovement
     $("div.box#"+String.fromCharCode(placeColumn)+index).addClass("drop highlight") 
   }
+
+  if(check && $("#K").parent().parent().hasClass("highlight")){
+    $("div.box#"+place).addClass("threat")
+    $(".highlight").removeClass("highlight")
+  }
 }
 
-function WhiteQueenMovement(place){
-  WhiteRookMovement(place);
-  WhiteBishopMovement(place);
+function WhiteQueenMovement(place, check = false){
+  WhiteRookMovement(place, check);
+  WhiteBishopMovement(place), check;
 }
 
-function BlackQueenMovement(place){
-  BlackRookMovement(place);
-  BlackBishopMovement(place);
+function BlackQueenMovement(place, check = false){
+  BlackRookMovement(place, check);
+  BlackBishopMovement(place, check);   
 }
 
-function WhiteKingMovement(place, FEN){
+function WhiteKingMovement(place, FEN, check = false){
   const placeRow = parseInt(place.charAt(1));
   const placeColumn = place.charCodeAt(0);
   const fen = FEN.split(" ")
@@ -234,7 +270,7 @@ function WhiteKingMovement(place, FEN){
   }
 }
 
-function BlackKingMovement(place, FEN){
+function BlackKingMovement(place, FEN, check = false){
   const placeRow = parseInt(place.charAt(1));
   const placeColumn = place.charCodeAt(0);
   const fen = FEN.split(" ")
@@ -258,7 +294,7 @@ function BlackKingMovement(place, FEN){
   }
 }
 
-function WhiteKnightMovement(place){
+function WhiteKnightMovement(place, check = false){
   const placeRow = parseInt(place.charAt(1));
   let placeColumn = place.charCodeAt(0);
   for (let index = -2; index < 3; index++) {
@@ -290,9 +326,15 @@ function WhiteKnightMovement(place){
       } 
     }
   }
+
+  if(check && $("#k").parent().parent().hasClass("highlight")){
+    $("div.box#"+place).addClass("threat")
+    $(".highlight").removeClass("highlight")
+  }
+
 }
 
-function BlackKnightMovement(place){
+function BlackKnightMovement(place, check = false){
   const placeRow = parseInt(place.charAt(1));
   let placeColumn = place.charCodeAt(0);
   for (let index = -2; index < 3; index++) {
@@ -324,8 +366,14 @@ function BlackKnightMovement(place){
       } 
     }
   }
+
+  if(check && $("#K").parent().parent().hasClass("highlight")){
+    $("div.box#"+place).addClass("threat")
+    $(".highlight").removeClass("highlight")
+  }
+
 }
 
-export {BlackPawnMove, WhitePawnMovement, BlackRookMovement, WhiteRookMovement, WhiteBishopMovement,
+export {BlackPawnMovement, WhitePawnMovement, BlackRookMovement, WhiteRookMovement, WhiteBishopMovement,
 BlackBishopMovement, WhiteQueenMovement, BlackQueenMovement, WhiteKingMovement, BlackKingMovement,
 WhiteKnightMovement, BlackKnightMovement}
