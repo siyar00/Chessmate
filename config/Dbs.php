@@ -19,3 +19,5 @@ class Dbs{
         return $this->conn;
     }
 }
+
+// t!m_DA#z4jRW@3N{

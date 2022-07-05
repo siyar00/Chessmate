@@ -13,9 +13,10 @@ import {
   BlackKnightMovement,
 } from "./movement.js";
 
-var FEN = "rnbqkbnr/pppppppp/11111111/11111111/11111111/11111111/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-if(sessionStorage.length != 0){
-  FEN = sessionStorage.getItem("FEN")
+var FEN =
+  "rnbqkbnr/pppppppp/11P11111/11111111/11111111/11111111/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+if (sessionStorage.length != 0) {
+  FEN = sessionStorage.getItem("FEN");
 }
 // var FEN = "r111k11r/1pppppp1/11111111/11111111/11111111/11111111/1PPPPPP1/R111K11R w KQkq - 0 1";
 //Beim Remis eine bessere UI machen
@@ -205,31 +206,44 @@ $(document).ready(
               $(".player-turn").text("An der Reihe ist: Weiß");
             }
 
-            if(sessionStorage.length != 0){
+            if (sessionStorage.length != 0) {
               $.ajax({
                 type: "POST",
                 url: "serviceHandler.php",
                 cache: false,
-                data: { method: "update", param: {
+                data: {
+                  method: "update",
+                  param: {
                     username: sessionStorage.getItem("username"),
-                    fen: FEN
-                  } 
+                    fen: FEN,
+                  },
                 },
                 dataType: "json",
                 success: (response) => {
-                  sessionStorage.setItem("FEN", FEN)
+                  sessionStorage.setItem("FEN", FEN);
                 },
                 error: (err) => {
                   console.log("Error update!");
                 },
               });
+            } //Update der FEN in der Datenbank
+
+            if (droptarget.lastChild.id == "K") {
+              alert("Schwarz gewinnt!");
+              $(".drop").removeClass("drop");
+              $(".dragdrop").draggable("destroy");
+              return;
+            } else if (droptarget.lastChild.id == "k") {
+              alert("Weiß gewinnt!");
+              $(".drop").removeClass("drop");
+              $(".dragdrop").draggable("destroy");
+              return;
             }
-            
 
             fenBoard();
 
-            // if(fen[1] == "w") CheckmateBlack();
-            // else CheckmateWhite()
+            if (fen[1] == "w") CheckmateBlack();
+            else CheckmateWhite();
           },
         });
     }
@@ -519,7 +533,7 @@ function modal(color) {
 
   return new Promise((resolve, reject) => {
     // Get the modal
-    var modal = document.getElementById("myModal");
+    var modal = document.getElementById("promotionModal");
     // Open the modal
     modal.style.display = "block";
     // Close modal
@@ -533,22 +547,30 @@ function modal(color) {
 }
 
 function CheckmateWhite() {
-  $("img#p").each((index, element) =>
-    BlackPawnMovement($(element).parent().attr("id"), FEN, true)
-  );
-  $("img#n").each((index, element) =>
-    BlackKnightMovement($(element).parent().attr("id"), true)
-  );
-  $("img#b").each((index, element) =>
-    BlackBishopMovement($(element).parent().attr("id"), true)
-  );
-  $("img#r").each((index, element) =>
-    BlackRookMovement($(element).parent().attr("id"), FEN, true)
-  );
+  $("img#p").each((index, element) => {
+    var loop = true;
+    if ($(element).hasClass("chess-modal")) loop = false;
+    if (loop) BlackPawnMovement($(element).parent().attr("id"), FEN, true);
+  });
+  $("img#n").each((index, element) => {
+    var loop = true;
+    if ($(element).hasClass("chess-modal")) loop = false;
+    if (loop) BlackKnightMovement($(element).parent().attr("id"), true);
+  });
+  $("img#b").each((index, element) => {
+    var loop = true;
+    if ($(element).hasClass("chess-modal")) loop = false;
+    if (loop) BlackBishopMovement($(element).parent().attr("id"), true);
+  });
+  $("img#r").each((index, element) => {
+    var loop = true;
+    if ($(element).hasClass("chess-modal")) loop = false;
+    if (loop) BlackRookMovement($(element).parent().attr("id"), FEN, true);
+  });
   BlackQueenMovement($("#q").parent().attr("id"), true);
 
   if ($("div.box.threat img").hasClass("black")) {
-    if ($("div.KingCheck").hasClass("highlight"))
+    if ($("div.KingCheck").hasClass("highlight")) {
       $("div.box.threat img").each((index, figure) => {
         switch ($(figure).attr("id")) {
           case "q":
@@ -568,24 +590,61 @@ function CheckmateWhite() {
             break;
         }
       });
+    }
+  }
+
+  if ($("div.box.threat img").hasClass("white")) {
+    alert("Check Black");
   }
   $("div.box").removeClass("highlight drop");
 }
 
 function CheckmateBlack() {
   WhiteQueenMovement($("#Q").parent().attr("id"), true);
-  $("img#N").each((index, element) =>
-    WhiteKnightMovement($(element).parent().attr("id"), true)
-  );
-  $("img#B").each((index, element) =>
-    WhiteBishopMovement($(element).parent().attr("id"), true)
-  );
-  $("img#R").each((index, element) =>
-    WhiteRookMovement($(element).parent().attr("id"), FEN, true)
-  );
-  $("img#P").each((index, element) =>
-    WhitePawnMovement($(element).parent().attr("id"), FEN, true)
-  );
+  console.log($("img#N"));
+  $("img#N").each((index, element) => {
+    var loop = true;
+    if ($(element).hasClass("chess-modal")) loop = false;
+    if (loop) WhiteKnightMovement($(element).parent().attr("id"), true);
+  });
+  $("img#B").each((index, element) => {
+    var loop = true;
+    if ($(element).hasClass("chess-modal")) loop = false;
+    if (loop) WhiteBishopMovement($(element).parent().attr("id"), true);
+  });
+  $("img#R").each((index, element) => {
+    var loop = true;
+    if ($(element).hasClass("chess-modal")) loop = false;
+    if (loop) WhiteRookMovement($(element).parent().attr("id"), FEN, true);
+  });
+  $("img#P").each((index, element) => {
+    var loop = true;
+    if ($(element).hasClass("chess-modal")) loop = false;
+    if (loop) WhitePawnMovement($(element).parent().attr("id"), FEN, true);
+  });
+
+  if ($("div.box.threat img").hasClass("white")) {
+    if ($("div.KingCheck").hasClass("highlight"))
+      $("div.box.threat img").each((index, figure) => {
+        switch ($(figure).attr("id")) {
+          case "Q":
+            BlackQueenMovement($("#Q").parent().attr("id"));
+            break;
+          case "B":
+            BlackBishopMovement(place);
+            break;
+          case "N":
+            BlackKnightMovement(place);
+            break;
+          case "R":
+            FEN = BlackRookMovement(place, FEN);
+            break;
+          case "P":
+            FEN = BlackPawnMovement(place, FEN);
+            break;
+        }
+      });
+  }
 
   if ($("div.box.threat img").hasClass("white")) {
     alert("Check Black");
@@ -643,43 +702,46 @@ $("#rules").click(() => {
 
 $(function () {
   $(document).on("click", "#loginSubmit", (event) => {
-    if($("#loginUser").val() == ""){
-      $("#errLogin").html("Bitte Benutzername einfügen!")
+    if ($("#loginUser").val() == "") {
+      $("#errLogin").html("Bitte Benutzername einfügen!");
       return;
-    } else if($("#loginPwd").val() == ""){
-      $("#errLogin").html("Bitte Passwort einfügen!")
+    } else if ($("#loginPwd").val() == "") {
+      $("#errLogin").html("Bitte Passwort einfügen!");
       return;
     }
 
     let login = {
       username: $("#loginUser").val(),
-      password: $("#loginPwd").val()
-    } 
+      password: $("#loginPwd").val(),
+    };
     $.ajax({
       type: "POST",
       url: "serviceHandler.php",
       cache: false,
-      data: { method: "login", param: login},
+      data: { method: "login", param: login },
       dataType: "json",
       success: (response) => {
-        if(response != "Benutzername nicht vorhanden!" && response != "Passwort falsch!"){
+        console.log(response.message);
+        if (response.error) {
           document.getElementById("loginModal").style.display = "none";
-          sessionStorage.setItem("username", $("#loginUser").val())
-          sessionStorage.setItem("FEN", response)
-          $("#loginUser").val("")
-          $("#loginPwd").val("")
-          FEN = response;
-          $("#login").remove()
-          $("#signup").remove()
-          $(".sidenav").append('<a class="nav-link" id="abmelden">Abmelden</a>');
-          fenBoard()
+          sessionStorage.setItem("username", $("#loginUser").val());
+          sessionStorage.setItem("FEN", response.message);
+          $("#loginUser").val("");
+          $("#loginPwd").val("");
+          FEN = response.message;
+          $("#login").remove();
+          $("#signup").remove();
+          $(".sidenav").append(
+            '<a class="nav-link" id="abmelden">Abmelden</a>'
+          );
+          fenBoard();
         } else {
-          $("#errLogin").html(response)
+          $("#errLogin").html(response.message);
         }
       },
       error: (err) => {
         console.log("Error login!");
-        console.log(err)
+        console.log(err);
       },
     });
   });
@@ -687,19 +749,19 @@ $(function () {
 
 $(function () {
   $(document).on("click", "#signupSubmit", (event) => {
-    if($("#signUser").val() == ""){
-      $("#errSign").html("Bitte Benutzername einfügen!")
+    if ($("#signUser").val() == "") {
+      $("#errSign").html("Bitte Benutzername einfügen!");
       return;
-    } else if($("#signPwd").val() == ""){
-      $("#errSign").html("Bitte Passwort einfügen!")
+    } else if ($("#signPwd").val() == "") {
+      $("#errSign").html("Bitte Passwort einfügen!");
       return;
     }
 
     let signup = {
       username: $("#signUser").val(),
       password: $("#signPwd").val(),
-      Fen: FEN
-    } 
+      Fen: FEN,
+    };
     $.ajax({
       type: "POST",
       url: "serviceHandler.php",
@@ -707,17 +769,19 @@ $(function () {
       data: { method: "signup", param: signup },
       dataType: "json",
       success: (response) => {
-        if(response != "Benutzername schon vergeben"){
+        if (response.error) {
           document.getElementById("signupModal").style.display = "none";
-          sessionStorage.setItem("username", $("#signUser").val())
-          sessionStorage.setItem("FEN", FEN)
-          $("#signUser").val("")
-          $("#signPwd").val("")
-          $("#login").remove()
-          $("#signup").remove()
-          $(".sidenav").append('<a class="nav-link" id="abmelden">Abmelden</a>');
+          sessionStorage.setItem("username", $("#signUser").val());
+          sessionStorage.setItem("FEN", FEN);
+          $("#signUser").val("");
+          $("#signPwd").val("");
+          $("#login").remove();
+          $("#signup").remove();
+          $(".sidenav").append(
+            '<a class="nav-link" id="abmelden">Abmelden</a>'
+          );
         } else {
-          $("#errSign").html(response)
+          $("#errSign").html(response.message);
         }
       },
       error: (err) => {
@@ -729,7 +793,7 @@ $(function () {
 
 $(document).on("click", "#abmelden", (event) => {
   sessionStorage.clear();
-  location.reload()
-})
+  location.reload();
+});
 
 export { fenBoard, figureMovement, FEN };
