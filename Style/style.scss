@@ -1,11 +1,12 @@
 $imageSize: 50rem;
 
-* {
-  outline: 1px solid limegreen !important;
-}
+// * {
+//   outline: 1px solid limegreen !important;
+// }
 
 body {
-  background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)), url("../Images/photo-1588412079929-790b9f593d8e.jpeg");
+  background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
+    url("../Images/photo-1588412079929-790b9f593d8e.jpeg");
   background-position: center;
   background-size: cover;
   position: relative;
@@ -13,11 +14,11 @@ body {
   padding-left: 11rem;
 }
 
-div.chess-table.unselectable.container{
+div.chess-table.unselectable.container {
   text-align: center;
   margin-top: 20px;
 
-  div.chess-row{
+  div.chess-row {
     height: $imageSize / 12;
   }
 
@@ -33,7 +34,7 @@ div.chess-table.unselectable.container{
       margin: 2.733px;
       width: $imageSize / 12 * 0.9;
       height: $imageSize / 12 * 0.9;
-      &[alt]{
+      &[alt] {
         color: transparent;
       }
     }
@@ -76,7 +77,7 @@ nav {
 
         &::after {
           /* nachdem man mit der Maus rüberfährt */
-          content: '';
+          content: "";
           width: 0%;
           /*underline will be hidden*/
           height: 2px;
@@ -116,7 +117,7 @@ nav {
 
 .hero-btn {
   display: inline-block;
-  top: 60%;
+  // top: 60%;
   text-decoration: none;
   color: #fff;
   border: 1px solid #fff;
@@ -124,7 +125,7 @@ nav {
   margin: 16px;
   font-size: 13px;
   background: transparent;
-  position: relative;
+  position: absolute;
   text-align: center;
   cursor: pointer;
 
@@ -157,15 +158,25 @@ nav {
 
 .black-box {
   background-color: rgb(202, 128, 76);
-  &.highlight{
-    background: radial-gradient(ellipse, rgb(202, 128, 76), rgb(202, 128, 76), #ff0707)  !important;
+  &.highlight {
+    background: radial-gradient(
+      ellipse,
+      rgb(202, 128, 76),
+      rgb(202, 128, 76),
+      #ff0707
+    ) !important;
   }
 }
 
 .white-box {
   background-color: rgb(228, 185, 154);
-  &.highlight{
-    background: radial-gradient(ellipse , rgb(228, 185, 154), rgb(228, 185, 154), #ff0707)  !important;
+  &.highlight {
+    background: radial-gradient(
+      ellipse,
+      rgb(228, 185, 154),
+      rgb(228, 185, 154),
+      #ff0707
+    ) !important;
   }
 }
 
@@ -175,93 +186,93 @@ nav {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}//Damit das markieren nicht funktioniert
+} //Damit das markieren nicht funktioniert
 
 @media only screen and (max-width: 800px) {
-    $imageSize: 40rem;
-    div.box {
-      width: 10px;
-      height: $imageSize / 12;
-      border: 1px solid black;
-      display: inline-block;
-      margin: -2px;
-      font-size: $imageSize / 30;
-      text-align: center;
-      img {
-        margin: 2.1666px;
-        width: $imageSize / 12 * 0.9;
-        height: $imageSize / 12 * 0.9;
-        &[alt]{
-          color: transparent;
-        }
+  $imageSize: 40rem;
+  div.box {
+    width: 10px;
+    height: $imageSize / 12;
+    border: 1px solid black;
+    display: inline-block;
+    margin: -2px;
+    font-size: $imageSize / 30;
+    text-align: center;
+    img {
+      margin: 2.1666px;
+      width: $imageSize / 12 * 0.9;
+      height: $imageSize / 12 * 0.9;
+      &[alt] {
+        color: transparent;
       }
     }
+  }
 
-    div.chess-row{
-        height: $imageSize / 12;
-    }
-    
-    div.chess-table{
-        width: $imageSize;
-    }
+  div.chess-row {
+    height: $imageSize / 12;
+  }
+
+  div.chess-table {
+    width: $imageSize;
+  }
 }
 
 @media (max-width: 450px) {
-    $imageSize: 30rem;
-    div.box {
-      width: $imageSize / 12;
-      height: $imageSize / 12;
-      border: 1px solid black;
-      display: inline-block;
-      margin: -2px;
-      font-size: $imageSize / 30;
-      text-align: center;
-      img {
-        margin: 1.5px;
-        width: $imageSize / 12 * 0.9;
-        height: $imageSize / 12 * 0.9;
-        &[alt]{
-          color: transparent;
-        }
+  $imageSize: 30rem;
+  div.box {
+    width: $imageSize / 12;
+    height: $imageSize / 12;
+    border: 1px solid black;
+    display: inline-block;
+    margin: -2px;
+    font-size: $imageSize / 30;
+    text-align: center;
+    img {
+      margin: 1.5px;
+      width: $imageSize / 12 * 0.9;
+      height: $imageSize / 12 * 0.9;
+      &[alt] {
+        color: transparent;
       }
     }
-    
-    div.chess-row{
-        height: $imageSize / 12;
-    }
-    
-    div.chess-table{
-        width: $imageSize;
-    }
+  }
+
+  div.chess-row {
+    height: $imageSize / 12;
+  }
+
+  div.chess-table {
+    width: $imageSize;
+  }
 }
 
 @media (max-width: 350px) {
-    $imageSize: 24rem;
-    div.box {
-      width: $imageSize / 12;
-      height: $imageSize / 12;
-      border: 1px solid black;
-      display: inline-block;
-      margin: -2px;
-      font-size: $imageSize / 30;
-      text-align: center;
-      img {
-        margin: 1px;
-        width: $imageSize / 12 * 0.9;
-        height: $imageSize / 12 * 0.9;
-        &[alt]{
-          color: transparent;
-        }
+  $imageSize: 24rem;
+  div.box {
+    width: $imageSize / 12;
+    height: $imageSize / 12;
+    border: 1px solid black;
+    display: inline-block;
+    margin: -2px;
+    font-size: $imageSize / 30;
+    text-align: center;
+    img {
+      margin: 1px;
+      width: $imageSize / 12 * 0.9;
+      height: $imageSize / 12 * 0.9;
+      &[alt] {
+        color: transparent;
       }
     }
-        
-    div.chess-row{
-        height: $imageSize / 12;
-    }
-    
-    div.chess-table{
-        width: $imageSize;
-    }
+  }
+
+  div.chess-row {
+    height: $imageSize / 12;
+  }
+
+  div.chess-table {
+    width: $imageSize;
+  }
 }
 
 /* The Modal (background) */
@@ -269,62 +280,94 @@ nav {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  padding-top: 50px; /* Location of the box */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  height: 100%; 
+  overflow-y: initial !important; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  .modal-header {
+    padding: 2px 16px;
+    // background-color: #585734;
+    color: whitesmoke;
+    background: rgba(202, 128, 76, 0.9) !important;
+  }
+
+  .modal-footer {
+    padding: 2px 16px;
+    background-color: rgba(202, 128, 76, 0.9);
+    color: whitesmoke;
+  }
+
+  .modal-body {
+    padding: 2px 16px;
+    height: 85%;
+    overflow-y: auto;
+    img {
+      width: 6rem;
+    }
+  }
+
+  /* Modal Content */
+  .modal-content {
+    position: relative;
+    color: whitesmoke;
+    background: rgba(0, 0, 0, 0.85) !important;
+    margin: auto;
+    margin-left: 160px;
+    padding: 0;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animatetop;
+    animation-name: animatetop;
+  }
+  .sign {
+    top: 40%
+  }
+  .scrollable{
+    height: 80%;
+  }
 }
 
-/* Modal Content */
-.modal-content {
-  position: relative;
-  background-color: #fefefe;
-  margin: auto;
-  padding: 0;
-  border: 1px solid #888;
-  width: 80%;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-  -webkit-animation-name: animatetop;
-  -webkit-animation-duration: 0.4s;
-  animation-name: animatetop;
-  animation-duration: 0.4s
-}
 
 /* Add Animation */
 @-webkit-keyframes animatetop {
-  from {top:-300px; opacity:0} 
-  to {top:0; opacity:1}
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
 }
 
 @keyframes animatetop {
-  from {top:-300px; opacity:0}
-  to {top:0; opacity:1}
-}
-
-.modal-header {
-  padding: 2px 16px;
-  background-color: #585734;
-  color: white;
-}
-
-
-.modal-footer {
-  padding: 2px 16px;
-  background-color: #585734;
-  color: white;
-}
-
-.modal{
-  .modal-body {
-    padding: 2px 16px;
-    img {
-      width: 6rem
-    }
+  from {
+    top: -300px;
+    opacity: 0;
   }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .sidenav {
@@ -336,20 +379,23 @@ nav {
   background-color: rgba(17, 17, 17, 0.5);
   overflow-x: hidden;
   padding-top: 20px;
-}
-
-.sidenav a {
+  
+  a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 25px;
   color: #818181;
   display: block;
-}
 
-.sidenav a:hover {
-  color: #f1f1f1;
-}
+    &:hover {
+      color: #f1f1f1;
+    }
+  }
 
+  button{
+    bottom: 5%
+  }
+}
 .main {
   margin-left: 160px; /* Same as the width of the sidenav */
   font-size: 28px; /* Increased text to enable scrolling */
@@ -357,6 +403,10 @@ nav {
 }
 
 @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+  .sidenav {
+    padding-top: 15px;
+    a {
+    font-size: 18px;
+    }
+  }
 }

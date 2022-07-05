@@ -1,8 +1,4 @@
 @charset "UTF-8";
-* {
-  outline: 1px solid limegreen !important;
-}
-
 body {
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(4, 9, 30, 0.7)), to(rgba(4, 9, 30, 0.7))), url("../Images/photo-1588412079929-790b9f593d8e.jpeg");
   background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)), url("../Images/photo-1588412079929-790b9f593d8e.jpeg");
@@ -90,7 +86,7 @@ nav .nav-links ul li:hover::after {
 
 nav .nav-links ul li:hover::after::after {
   /* nachdem man mit der Maus rüberfährt */
-  content: '';
+  content: "";
   width: 0%;
   /*underline will be hidden*/
   height: 2px;
@@ -127,7 +123,6 @@ nav .nav-links ul li a {
 
 .hero-btn {
   display: inline-block;
-  top: 60%;
   text-decoration: none;
   color: #fff;
   border: 1px solid #fff;
@@ -135,7 +130,7 @@ nav .nav-links ul li a {
   margin: 16px;
   font-size: 13px;
   background: transparent;
-  position: relative;
+  position: absolute;
   text-align: center;
   cursor: pointer;
 }
@@ -257,36 +252,64 @@ nav .nav-links ul li a {
   /* Stay in place */
   z-index: 1;
   /* Sit on top */
-  padding-top: 100px;
+  padding-top: 50px;
   /* Location of the box */
   left: 0;
   top: 0;
   width: 100%;
   /* Full width */
   height: 100%;
-  /* Full height */
-  overflow: auto;
+  overflow-y: initial !important;
   /* Enable scroll if needed */
   background-color: black;
   /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4);
   /* Black w/ opacity */
+  /* Modal Content */
 }
 
-/* Modal Content */
-.modal-content {
+.modal .modal-header {
+  padding: 2px 16px;
+  color: whitesmoke;
+  background: rgba(202, 128, 76, 0.9) !important;
+}
+
+.modal .modal-footer {
+  padding: 2px 16px;
+  background-color: rgba(202, 128, 76, 0.9);
+  color: whitesmoke;
+}
+
+.modal .modal-body {
+  padding: 2px 16px;
+  height: 85%;
+  overflow-y: auto;
+}
+
+.modal .modal-body img {
+  width: 6rem;
+}
+
+.modal .modal-content {
   position: relative;
-  background-color: #fefefe;
+  color: whitesmoke;
+  background: rgba(0, 0, 0, 0.85) !important;
   margin: auto;
+  margin-left: 160px;
   padding: 0;
-  border: 1px solid #888;
   width: 80%;
   -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
           box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   -webkit-animation-name: animatetop;
-  -webkit-animation-duration: 0.4s;
   animation-name: animatetop;
-  animation-duration: 0.4s;
+}
+
+.modal .sign {
+  top: 40%;
+}
+
+.modal .scrollable {
+  height: 80%;
 }
 
 /* Add Animation */
@@ -312,24 +335,19 @@ nav .nav-links ul li a {
   }
 }
 
-.modal-header {
-  padding: 2px 16px;
-  background-color: #585734;
-  color: white;
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
 }
 
-.modal-footer {
-  padding: 2px 16px;
-  background-color: #585734;
-  color: white;
-}
-
-.modal .modal-body {
-  padding: 2px 16px;
-}
-
-.modal .modal-body img {
-  width: 6rem;
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .sidenav {
@@ -353,6 +371,10 @@ nav .nav-links ul li a {
 
 .sidenav a:hover {
   color: #f1f1f1;
+}
+
+.sidenav button {
+  bottom: 5%;
 }
 
 .main {

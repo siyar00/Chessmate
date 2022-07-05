@@ -1,0 +1,177 @@
+.login-box {
+  position: absolute !important;
+  top: 80% !important;
+  left: 50% !important;
+  width: 400px !important;
+  padding: 40px !important;
+  transform: translate(-50%, -50%) !important;
+  background: rgba(0, 0, 0, 0.9) !important;
+  box-sizing: border-box !important;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6) !important;
+  border-radius: 10px !important;
+}
+
+.login-box h2 {
+  margin: 0 0 30px !important;
+  padding: 0 !important;
+  color: #fff !important;
+  text-align: center !important;
+}
+
+.login-box .user-box {
+  position: relative !important;
+}
+
+.login-box .user-box input {
+  width: 100% !important;
+  padding: 10px 0 !important;
+  font-size: 16px !important;
+  color: #fff !important;
+  margin-bottom: 30px !important;
+  border: none !important;
+  border-bottom: 1px solid #fff !important;
+  outline: none !important;
+  background: transparent !important;
+}
+.login-box .user-box label {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  padding: 10px 0 !important;
+  font-size: 16px !important;
+  color: #fff !important;
+  pointer-events: none !important;
+  transition: 0.5s !important;
+}
+
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label {
+  top: -20px !important;
+  left: 0 !important;
+  color: rgb(228, 185, 154) !important;
+  font-size: 12px !important;
+}
+
+.login-box form a {
+  position: relative !important;
+  display: inline-block !important;
+  padding: 10px 20px !important;
+  color: white !important;
+  font-size: 16px !important;
+  text-decoration: none !important;
+  text-transform: uppercase !important;
+  overflow: hidden !important;
+  transition: 0.5s !important;
+  margin-top: 15px !important;
+  letter-spacing: 4px;
+}
+
+.login-box a:hover {
+  background: rgb(202, 128, 76) !important;
+  color: #fff !important;
+  border-radius: 5px !important;
+  box-shadow: 0 0 5px rgb(202, 128, 76), 0 0 25px rgb(202, 128, 76), 0 0 50px rgb(202, 128, 76),
+    0 0 100px rgb(202, 128, 76) !important;
+}
+
+.login-box a span {
+  position: absolute !important;
+  display: block !important;
+}
+
+.login-box a span:nth-child(1) {
+  top: 0 !important;
+  left: -100% !important;
+  width: 100% !important;
+  height: 2px !important;
+  background: linear-gradient(90deg, transparent, rgb(202, 128, 76)) !important;
+  animation: btn-anim1 1s linear infinite !important;
+}
+
+@keyframes btn-anim1 {
+  0% {
+    left: -100% !important;
+  }
+  50%,
+  100% {
+    left: 100% !important;
+  }
+}
+
+.login-box a span:nth-child(2) {
+  top: -100% !important;
+  right: 0 !important;
+  width: 2px !important;
+  height: 100% !important;
+  background: linear-gradient(180deg, transparent, rgb(202, 128, 76)) !important;
+  animation: btn-anim2 1s linear infinite !important;
+  animation-delay: 0.25s;
+}
+
+@keyframes btn-anim2 {
+  0% {
+    top: -100% !important;
+  }
+  50%,
+  100% {
+    top: 100% !important;
+  }
+}
+
+.login-box a span:nth-child(3) {
+  bottom: 0 !important;
+  right: -100% !important;
+  width: 100% !important;
+  height: 2px !important;
+  background: linear-gradient(270deg, transparent, rgb(202, 128, 76)) !important;
+  animation: btn-anim3 1s linear infinite !important;
+  animation-delay: 0.5s;
+}
+
+@keyframes btn-anim3 {
+  0% {
+    right: -100% !important;
+  }
+  50%,
+  100% {
+    right: 100% !important;
+  }
+}
+
+.login-box a span:nth-child(4) {
+  bottom: -100% !important;
+  left: 0 !important;
+  width: 2px !important;
+  height: 100% !important;
+  background: linear-gradient(360deg, transparent, rgb(202, 128, 76)) !important;
+  animation: btn-anim4 1s linear infinite !important;
+  animation-delay: 0.75s;
+}
+
+@keyframes btn-anim4 {
+  0% {
+    bottom: -100% !important;
+  }
+  50%,
+  100% {
+    bottom: 100% !important;
+  }
+}
+
+.figure {
+    h3{
+        color: beige;
+        text-shadow: black;
+        font: bold;
+        font-size: larger;
+        margin-bottom: 0rem; 
+        text-decoration: underline;
+    }
+    p{
+        margin-top: 0.2rem;
+        display: flex;
+        img{
+            justify-content: end;
+        }
+    }
+}   

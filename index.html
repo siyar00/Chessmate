@@ -17,6 +17,7 @@
     <script src="Script/script.js" type="module/js"></script>
     <script src="Script/movement.js" type="module"></script>
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="Style/sing.css" type="text/css">
     <link rel='stylesheet' href='Style/draganddrop.css' type='text/css'>
     <link rel="stylesheet" href="Style/style.css" type='text/css'>
     <link rel="icon" href="Images/queen-black.png" type="image/x-icon">
@@ -40,8 +41,10 @@
 
     <div class="sidenav">
         <a href="index.html" type="image/png"><img src="Images/My project-modified.png" height="75px"></a>
-        <a class="nav-link" href="#appointments">Login</a>
-        <a class="nav-link" href="#appointments">Registrierung</a>
+        <a class="nav-link" id="login">Login</a>
+        <a class="nav-link" id="signup">Registrierung</a>
+        <a class="nav-link" id="rules">Spielregeln</a>
+
         <button id="btn" class="hero-btn">Restart!</button>
     </div>
 
@@ -134,8 +137,8 @@
         <p class="player-turn">An der Reihe ist: Weiß</p>
     </div>
 
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
+    <!-- The Promotion Modal -->
+    <div id="promotionModal" class="modal">
         <!-- Modal content -->
         <div class="modal-content">
             <div class="modal-header">
@@ -150,6 +153,212 @@
             </div>
         </div>
     </div>
+
+    <!-- The Login Modal -->
+    <div id="loginModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content sign">
+            <div class="login-box">
+                <span id="closeLogin" class="close">&times;</span>
+                <h2>Login</h2>
+                <form>
+                    <div class="user-box">
+                        <input type="text" name="" required="">
+                        <label>Benutzername</label>
+                    </div>
+                    <div class="user-box">
+                        <input type="password" name="" required="">
+                        <label>Passwort</label>
+                    </div>
+                    <a href="#">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Login
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Signup Modal -->
+    <div id="signupModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content sign">
+            <div class="login-box">
+                <span id="closeSignup" class="close">&times;</span>
+                <h2>Registrierung</h2>
+                <form>
+                    <div class="user-box">
+                        <input type="text" name="" required="">
+                        <label>Benutzername</label>
+                    </div>
+                    <div class="user-box">
+                        <input type="password" name="" required="">
+                        <label>Passwort</label>
+                    </div>
+                    <a href="#">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Registrieren
+                    </a>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- The Rules Modal -->
+    <div id="rulesModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content scrollable">
+            <div class="modal-header">
+                <span id="closeRules" class="close">&times;</span>
+                <h2>Spielregeln</h2>
+            </div>
+            <div class="modal-body figure">
+                <h3>Bauer</h3>
+                <p>
+                    Bauern sind ungewöhnlich da sich die Weise wie sich bewegen und schlagen unterscheiden: Sie bewegen
+                    sich vorwärts, schlagen aber diagonal. Sie bewegen sich ein Feld pro Zug, außer es ist ihr erster
+                    Zug, in welchem falle sie sich optional zwei Felder weit bewegen können. Bauern können nur ein Feld
+                    weit diagonal von sich schlagen. Sie können sich niemals rückwärts bewegen oder rückwärts schlagen.
+                    Befindet sich eine andere Figur direkt vor einem Bauer, ist der Bauer blockiert.
+                    <img src="Images/pawn.gif">
+                </p>
+                <h3>Turm</h3>
+                <p>
+                    Der Turm darf sich so weit bewegen wie er will, aber nur vorwärts, rückwärts und seitwärts. Die
+                    Türme sind besonders starke Figuren wenn sie sich gegenseitig schützen und zusammenarbeiten!
+                    <img src="Images/turm.gif">
+                </p>
+                <h3>Läufer</h3>
+                <p>
+                    Der Läufer darf soweit ziehen, wie er will, allerdings nur entlang der Diagonalen. Jeder Läufer
+                    beginnt auf einer Spielfeldfarbe (schwarz oder weiß) und bleibt das gesamte Spiel auf dieser Farbe.
+                    Läufer ergenzen einander gut, da sie die gegeseitige Schwäche aufheben.
+                    <img src="Images/bishop.gif">
+                </p>
+                <h3>Springer</h3>
+                <p>
+                    Springer bewegen sich ganz anders als andere Figuren: Zwei Felder vorwärts und eines zur Seite, also
+                    in der Form des Buchstaben "L". Der Springer ist die einzige Figur, die über andere Figuren springen
+                    kann.
+                    <img src="Images/knight.gif">
+                </p>
+                <h3>Dame</h3>
+                <p>
+                    Die Dame ist die stärkste Figur. Sie kann sich gerade in alle Richtungen bewegen- vorwärst,
+                    rückwärts, zu den Seiten und diagonal- jeweils soviele Felder wie ihr keine eigene Figur im Weg
+                    steht. Und wie mit jeder anderen Figur: Wenn die Dame eine gegnerische Figur schlägt, kann sie nicht
+                    weiter ziehen. Sieh mal, wie die weiße Dame die schwarze schlägt und der König so zu einem Zug
+                    gezwungen wird.
+                    <img src="Images/queen.gif">
+                </p>
+                <h3>König</h3>
+                <p>
+                    Der König ist die wichtigste Figur, ist aber gleichzeitig einer der schwächsten. Er kann sich nur
+                    ein Feld in jede Richtung bewegen - hoch, runter, zu den Seiten und diagonal. Der König darf sich
+                    niemals von selbst ins Schach setzen, d.h. auf ein vom Gegner kontrolliertes Feld ziehen. Wenn ein
+                    Spieler am Zug ist und mit einer seiner Figuren das Feld des gegnerischen Königs beansprucht, nennt
+                    sich das "Schach".
+                    <img src="Images/king.gif">
+                </p>
+                <h3>Bauernverwandlung</h3>
+                <p>
+                    Bauern besitzen eine weitere Spezialfähigkeit: Wenn ein Bauer bis zur gegnerischen Grundreihe
+                    gelangt, darf er in jede andere Figur (außer in den König) umgewandelt werden. Ein häufiger Irrtum
+                    ist, dass Bauern nur in eine bereits vom Gegner geschlagene Figur umgewandelt werden dürfen.
+                    Meistens wird ein derart vorgerückter Bauer in eine Dame verwandelt. Nur Bauern können umgewandelt
+                    werden.
+                </p>
+                <h3>En-Passent</h3>
+                <p>
+                    Eine letzte Regel für Bauern ist das sogenannte "en passant", was im Französischen "im Vorbeigehen"
+                    bedeutet. Falls ein Bauer sich zwei Felder weit bei seinem ersten Zug bewegt, und dabei seitlich
+                    neben dem Bauern eines Gegners landet (also effektiv die Schlag-Gelegenheit dieses Bauerns
+                    überspringt), dann hat der andere Bauer die Möglichkeit, diesen zu schlagen. Dieser besondere Zug
+                    muss unmittelbar auf den zuerst besprochen Bauernzug folgen, ansonsten vergeht die Möglichkeit des
+                    "en passant". Klicke dich durch das Beispiel unten, um diese seltsame, aber wichtige Regel besser zu
+                    verstehen.
+                </p>
+                <h3>Rochade</h3>
+                <p>
+                    Eine weitere Spezialregel nennt sich Rochade. Dieser Zug erlaubt es, zwei wichtige Dinge auf einmal
+                    zu erledigen: deinen König (hoffentlich) in Sicherheit zu bringen und deinen Turm aus der Ecke
+                    heraus und ins Spiel zu bekommen. Ist ein Spieler am Zug und rochiert, darf er dabei seinen König 2
+                    Felder nach rechts oder links verschieben und gleichzeitig den Turm, der in der jeweiligen
+                    Zugrichtung des Königs steht, auf das unmittelbare Nachbarfeld zur anderen Seite des Königs stellen.
+                    (Siehe Bsp. unten.) Allerdings müssen für das Ausführen einer Rochade einige Bedingungen erfüllt
+                    sein:                    <img src="Images/rochade.gif">
+
+                </p>
+                <ul>
+                    <li>es muss der erste Zug des Königs im Spiel sein</li>
+                    <li>es muss der erste Zug des Turms im Spiel sein</li>
+                    <li>es dürfen keine Figuren zwischen dem König und dem rochierenden Turm stehen</li>
+                    <li>Der König darf nicht im Schach stehen oder ein vom Gegner angegriffenes Feld überqueren</li>
+
+                </ul>
+
+                <p>
+                Hast du bemerkt, dass bei der Rochade in die eine Richtung der König näher zum Brettrand steht?
+                Damit hast du "kurz" rochiert. Rochierst du hingegen auf die andere Seite, in Richtung der
+                Anfangsposition der Dame, hast du "lang" rochiert. Bei beiden Variaten bewegt sich der König nur 2
+                Felder zur Seite.
+                </p>
+                <h3>Remis</h3>
+                <p>Gelegentlich enden Schachpartien nicht mit einem Gewinner, sondern mit einem Unentschieden, also
+                    einem Remis. Es gibt fünf Gründe warum ein Schachspiel im Remis enden kann:
+                <ul>
+                    <li>Die Position erreicht ein sogenanntes Patt, wenn ein Spieler am Zug ist, dieser aber nur seinen
+                        König ins Schach ziehen und sonst keinen anderen Zug machen kann</li>
+                    <li>Übereinkunft: Die Spieler können sich einfach auf ein Remis einigen und damit die Partie beenden
+                    </li>
+                    <li>Es gibt nicht genügend Material auf dem Brett um ein Matt zu erzwingen (Beispiel: König und
+                        Läufer gegen König)</li>
+                    <li>Ein Spieler kann Remis reklamieren, wenn genau dieselbe Stellung zum dritten Mal auf dem Brett
+                        erscheint ( das muss nicht dreimal hintereinander sein)</li>
+                    <li>50-Züge-Regel: Es wurden beiderseits fünfzig aufeinanderfolgende Züge gespielt, bei denen weder
+                        ein Bauer gezogen, noch eine Figur geschlagen wurde</li>
+                </ul>
+                </p>
+                <h3>Schachmatt</h3>
+                <p>Wie zuvor erklärt, ist es das Ziel des Spiels, den gegnerischen König Schachmatt zu setzen. Dies
+                    gelingt, wenn der König Schach gesetzt ist und sich nicht aus dem Schach heraus bewegen kann. Es
+                    gibt nur drei Wege durch die ein König sich dem Schach entziehen kann:
+                <ul>
+                    <li> Auf ein nicht bedrohtes Feld ziehen (Rochieren ist allerdings nicht erlaubt!)
+                    </li>
+                    <li> das Schach mit einer anderen Figur blockieren oder
+                    </li>
+                    <li> die Figur, die den König bedroht, schlagen.
+                    </li>
+                </ul>
+
+                Kann ein König sich nicht dem Schach entziehen, endet das Spiel. Traditionell wird der König nicht im
+                nächsten Zug geschlagen oder vom Brett genommen, sondern das Spiel wird einfach beendet.</p>
+                <h3>Schachmatt</h3>
+                <p>Ein Schachmatt ist eine Stellung im Schachspiel, in der ein König im
+                    Schach steht und es keinen regelgerechten Zug gibt, dieses Schachgebot aufzuheben. Mit einem
+                    Schachmatt ist die Partie beendet und für den Spieler, dessen König schachmatt gesetzt wurde,
+                    verloren.
+                    Davon zu unterscheiden ist das Patt, bei dem der Spieler am Zug zwar ebenfalls keine legalen
+                    Zugmöglichkeiten hat, sein König aber nicht im Schach steht. Im Falle von Patt endet die Partie
+                    remis. </p>
+                <br>
+                <a href="https://www.chess.com/de/schachregeln">Quelle</a>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
 </body>
 
 </html>

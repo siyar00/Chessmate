@@ -13,8 +13,8 @@ import {
   BlackKnightMovement,
 } from "./movement.js";
 
-// var FEN = "rnbqkbnr/pppppppp/11111111/11111111/11111111/11111111/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-var FEN = "r111k11r/1pppppp1/11111111/11111111/11111111/11111111/1PPPPPP1/R111K11R w KQkq - 0 1";
+var FEN = "rnbqkbnr/pppppppp/11111111/11111111/11111111/11111111/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+// var FEN = "r111k11r/1pppppp1/11111111/11111111/11111111/11111111/1PPPPPP1/R111K11R w KQkq - 0 1";
 //Speichere die FEN in die Datenbank immer wieder rein für den jeweiligen User
 //Beim Remis eine bessere UI machen
 //Rochade schauen, dass man bei einem verlorenen Turm, der König keine Rochade spielen kann.
@@ -174,8 +174,14 @@ $(document).ready(
 
             fen[0] = board.join("/");
             FEN = fen.join(" ");
-            if (fen[1] == "w")  FEN = FEN.replace("w", "s");
-            else  FEN = FEN.replace("s", "w");
+            if (fen[1] == "w") {
+              FEN = FEN.replace("w", "s");
+              $(".player-turn").text("An der Reihe ist: Schwarz")
+            }
+            else{
+              FEN = FEN.replace("s", "w");
+              $(".player-turn").text("An der Reihe ist: Weiß")
+            }
             console.log(FEN);
             fenBoard();
             
@@ -452,5 +458,55 @@ function CheckmateBlack(){
   } 
   $("div.box").removeClass("highlight drop");
 }
+
+$("#login").click(() => {
+  var modal = document.getElementById("loginModal");
+  modal.style.display = "block";
+  // Get the <span> element that closes the modal
+  var span = document.getElementById("closeLogin");
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  } 
+})
+
+$("#signup").click(() => {
+  var modal = document.getElementById("signupModal");
+  modal.style.display = "block";
+  // Get the <span> element that closes the modal
+  var span = document.getElementById("closeSignup");
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  } 
+})
+
+$("#rules").click(() => {
+  var modal = document.getElementById("rulesModal");
+  modal.style.display = "block";
+  // Get the <span> element that closes the modal
+  var span = document.getElementById("closeRules");
+  console.log(span)
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  } 
+})
+
 
 export { fenBoard, figureMovement, FEN };
