@@ -601,7 +601,6 @@ function CheckmateWhite() {
 
 function CheckmateBlack() {
   WhiteQueenMovement($("#Q").parent().attr("id"), true);
-  console.log($("img#N"));
   $("img#N").each((index, element) => {
     var loop = true;
     if ($(element).hasClass("chess-modal")) loop = false;
@@ -721,7 +720,6 @@ $(function () {
       data: { method: "login", param: login },
       dataType: "json",
       success: (response) => {
-        console.log(response.message);
         if (response.error) {
           document.getElementById("loginModal").style.display = "none";
           sessionStorage.setItem("username", $("#loginUser").val());
