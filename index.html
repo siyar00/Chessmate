@@ -21,10 +21,30 @@
     <link rel="stylesheet" href="Style/style.css" type='text/css'>
     <link rel="icon" href="Images/queen-black.png" type="image/x-icon">
     <link rel="apple-touch-icon-precomposed" type="image/x-icon" href="Images/queen-black.png">
-    <title>Document</title>
+    <title>Chessmate</title>
 </head>
 
 <body>
+    <!-- <section class="header">
+        <nav>
+            <div class="nav-links" id="navLinks">
+                <ul>
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
+                    </li>
+                </ul>
+            </div>
+        </nav>-->
+
+
+    <div class="sidenav">
+        <a href="index.html" type="image/png"><img src="Images/My project-modified.png" height="75px"></a>
+        <a class="nav-link" href="#appointments">Login</a>
+        <a class="nav-link" href="#appointments">Registrierung</a>
+        <button id="btn" class="hero-btn">Restart!</button>
+    </div>
+
     <div class="chess-table unselectable container">
         <div class="chess-row">
             <div id="a1" class="box white-box drop"></div>
@@ -107,19 +127,12 @@
             <div id="h8" class="box white-box drop"></div>
         </div>
     </div>
+    <!-- class player turn in script.js implementieren // alternierend pro Runde -->
+    <!-- </section> -->
     <br>
-    <button id="btn">Restart!</button>
-
-    <!-- <button class="btn btn-primary drag">Drag me</button>
-    <button class="btn btn-primary draghandle">Drag my <strong class="handle">handle</strong></button>
-    <button class="btn btn-primary dragdrop">Drag and Drop me</button>
-    <span class="draggables">
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>4</button>
-    </span> -->
-
+    <div class="text-box">
+        <p class="player-turn">An der Reihe ist: Weiß</p>
+    </div>
 
     <!-- The Modal -->
     <div id="myModal" class="modal">
@@ -137,7 +150,6 @@
             </div>
         </div>
     </div>
-
 </body>
 
 </html>
