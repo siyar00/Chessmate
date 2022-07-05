@@ -14,10 +14,20 @@ import {
 } from "./movement.js";
 
 var FEN = "rnbqkbnr/pppppppp/11111111/11111111/11111111/11111111/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+if(sessionStorage.length != 0){
+  FEN = sessionStorage.getItem("FEN")
+}
 // var FEN = "r111k11r/1pppppp1/11111111/11111111/11111111/11111111/1PPPPPP1/R111K11R w KQkq - 0 1";
-//Speichere die FEN in die Datenbank immer wieder rein für den jeweiligen User
 //Beim Remis eine bessere UI machen
 //Rochade schauen, dass man bei einem verlorenen Turm, der König keine Rochade spielen kann.
+
+// $(document).ready(() => {
+//   if(sessionStorage.length != 0){
+//     $("#login").remove()
+//     $("#signup").remove()
+//     $(".sidenav").append('<a class="nav-link" id="abmelden">Abmelden</a>');
+//   }
+// })
 
 const chesspieces = new Map([
   ["k", "Images/king-black.png"],
@@ -86,7 +96,7 @@ $(document).ready(
               let zuege = parseInt(fen[5]);
               if (figure == "P" || figure == "p") zuege = 0;
               if (zuege == 100) {
-                alert("Unentschieden! Das Spiel endet!")
+                alert("Unentschieden! Das Spiel endet!");
                 $(".drop").removeClass("drop");
                 $(".dragdrop").draggable("destroy");
                 return;
@@ -98,24 +108,29 @@ $(document).ready(
               if (figure == "p" && droptarget.id == fen[3]) {
                 $("div#" + column + (row - 1) + " img").remove();
                 board[row - 2] = deleteMovedFigure(board[row - 2], column); //Löschen der geschlagenen Figur im FEN
-              }//En-Passent schwarz
+              } //En-Passent schwarz
               if (figure == "P" && droptarget.id == fen[3]) {
                 $("div#" + column + (row + 1) + " img").remove();
                 board[row] = deleteMovedFigure(board[row], column); //Löschen der geschlagenen Figur im FEN
-              }//En-Passent weiß 
+              } //En-Passent weiß
               fen[3] = "-";
-            }// En-Passent
+            } // En-Passent
 
             if (fen[2] != "-") {
-              if(droptarget.firstChild.firstChild != null){
-                const destroyFigure = droptarget.firstChild.firstChild.id
-                if(destroyFigure == "r"  && (droptarget.id == "a1" || droptarget.id == "h1")){
-                  fen[2] = BlackRookRochade(fen[2], droptarget.id)
-                } else if(destroyFigure == "R"  && (droptarget.id == "a8" || droptarget.id == "h8")){
-                  fen[2] = WhiteRookRochade(fen[2], droptarget.id)
+              if (droptarget.firstChild.firstChild != null) {
+                const destroyFigure = droptarget.firstChild.firstChild.id;
+                if (
+                  destroyFigure == "r" &&
+                  (droptarget.id == "a1" || droptarget.id == "h1")
+                ) {
+                  fen[2] = BlackRookRochade(fen[2], droptarget.id);
+                } else if (
+                  destroyFigure == "R" &&
+                  (droptarget.id == "a8" || droptarget.id == "h8")
+                ) {
+                  fen[2] = WhiteRookRochade(fen[2], droptarget.id);
                 }
               }
-              
 
               if (figure == "K") {
                 fen[2] = WhiteKingRochade(fen[2]);
@@ -147,8 +162,7 @@ $(document).ready(
                     "h"
                   );
                 }
-              }
-              else if (figure == "R")
+              } else if (figure == "R")
                 fen[2] = WhiteRookRochade(fen[2], droptarget.lastChild.id);
               else if (figure == "r")
                 fen[2] = BlackRookRochade(fen[2], droptarget.lastChild.id);
@@ -158,33 +172,62 @@ $(document).ready(
             if (figure == "p" && row == 4) fen[3] = column + 3;
 
             {
-              if(figure == "P" && row == 1){
+              if (figure == "P" && row == 1) {
                 figure = await modal(0);
                 board[row - 1] = addFigureToRow(board[row - 1], column, figure); //Hinzufügen der Figur in der neuen Reihe im FEN
-                board[rowLast - 1] = deleteMovedFigure(board[rowLast - 1], columnLast);
-              } else if(figure == "p" && row == 8){
+                board[rowLast - 1] = deleteMovedFigure(
+                  board[rowLast - 1],
+                  columnLast
+                );
+              } else if (figure == "p" && row == 8) {
                 figure = await modal(1);
                 board[row - 1] = addFigureToRow(board[row - 1], column, figure); //Hinzufügen der Figur in der neuen Reihe im FEN
-                board[rowLast - 1] = deleteMovedFigure(board[rowLast - 1], columnLast);
+                board[rowLast - 1] = deleteMovedFigure(
+                  board[rowLast - 1],
+                  columnLast
+                );
               } else {
                 board[row - 1] = addFigureToRow(board[row - 1], column, figure); //Hinzufügen der Figur in der neuen Reihe im FEN
-                board[rowLast - 1] = deleteMovedFigure(board[rowLast - 1], columnLast); //Löschen der bewegten Figur im FEN
-              } 
+                board[rowLast - 1] = deleteMovedFigure(
+                  board[rowLast - 1],
+                  columnLast
+                ); //Löschen der bewegten Figur im FEN
+              }
             } // Allgemeine Figurenplatzänderung und Bauernverwandlung
 
             fen[0] = board.join("/");
             FEN = fen.join(" ");
             if (fen[1] == "w") {
               FEN = FEN.replace("w", "s");
-              $(".player-turn").text("An der Reihe ist: Schwarz")
-            }
-            else{
+              $(".player-turn").text("An der Reihe ist: Schwarz");
+            } else {
               FEN = FEN.replace("s", "w");
-              $(".player-turn").text("An der Reihe ist: Weiß")
+              $(".player-turn").text("An der Reihe ist: Weiß");
             }
-            console.log(FEN);
-            fenBoard();
+
+            if(sessionStorage.length != 0){
+              $.ajax({
+                type: "POST",
+                url: "serviceHandler.php",
+                cache: false,
+                data: { method: "update", param: {
+                    username: sessionStorage.getItem("username"),
+                    fen: FEN
+                  } 
+                },
+                dataType: "json",
+                success: (response) => {
+                  sessionStorage.setItem("FEN", FEN)
+                },
+                error: (err) => {
+                  console.log("Error update!");
+                },
+              });
+            }
             
+
+            fenBoard();
+
             // if(fen[1] == "w") CheckmateBlack();
             // else CheckmateWhite()
           },
@@ -206,52 +249,112 @@ $(document).ready(
         $("div.box div").eq(i).attr("id", $("div.box").eq(i).attr("id"));
         switch (figur) {
           case "k":
-            $("div.box div").eq(i).html('<img id="k" class="black" src="' +
-                  chesspieces.get("k") +'" alt="Black King">');
+            $("div.box div")
+              .eq(i)
+              .html(
+                '<img id="k" class="black" src="' +
+                  chesspieces.get("k") +
+                  '" alt="Black King">'
+              );
             break;
           case "q":
-            $("div.box div").eq(i).html('<img id="q" class="black" src="' +
-                  chesspieces.get("q") +'" alt="Black Queen">');
+            $("div.box div")
+              .eq(i)
+              .html(
+                '<img id="q" class="black" src="' +
+                  chesspieces.get("q") +
+                  '" alt="Black Queen">'
+              );
             break;
           case "b":
-            $("div.box div").eq(i).html('<img id="b" class="black" src="' +
-                  chesspieces.get("b") +'" alt="Black Bishop">');
+            $("div.box div")
+              .eq(i)
+              .html(
+                '<img id="b" class="black" src="' +
+                  chesspieces.get("b") +
+                  '" alt="Black Bishop">'
+              );
             break;
           case "n":
-            $("div.box div").eq(i).html('<img id="n" class="black" src="' +
-                  chesspieces.get("n") +'" alt="Black Knight">');
+            $("div.box div")
+              .eq(i)
+              .html(
+                '<img id="n" class="black" src="' +
+                  chesspieces.get("n") +
+                  '" alt="Black Knight">'
+              );
             break;
           case "r":
-            $("div.box div").eq(i).html('<img id="r" class="black" src="' +
-                  chesspieces.get("r") +'" alt="Black Rook">');
+            $("div.box div")
+              .eq(i)
+              .html(
+                '<img id="r" class="black" src="' +
+                  chesspieces.get("r") +
+                  '" alt="Black Rook">'
+              );
             break;
           case "p":
-            $("div.box div").eq(i).html('<img id="p" class="black" src="' +
-                  chesspieces.get("p") +'" alt="Black Pawn">');
+            $("div.box div")
+              .eq(i)
+              .html(
+                '<img id="p" class="black" src="' +
+                  chesspieces.get("p") +
+                  '" alt="Black Pawn">'
+              );
             break;
           case "K":
-            $("div.box div").eq(i).html('<img id="K" class="white" src="' +
-                  chesspieces.get("K") +'" alt="White King">');
+            $("div.box div")
+              .eq(i)
+              .html(
+                '<img id="K" class="white" src="' +
+                  chesspieces.get("K") +
+                  '" alt="White King">'
+              );
             break;
           case "Q":
-            $("div.box div").eq(i).html('<img id="Q" class="white" src="' +
-                  chesspieces.get("Q") +'" alt="White Queen">');
+            $("div.box div")
+              .eq(i)
+              .html(
+                '<img id="Q" class="white" src="' +
+                  chesspieces.get("Q") +
+                  '" alt="White Queen">'
+              );
             break;
           case "B":
-            $("div.box div").eq(i).html('<img id="B" class="white" src="' +
-                  chesspieces.get("B") +'" alt="White Bishop">');
+            $("div.box div")
+              .eq(i)
+              .html(
+                '<img id="B" class="white" src="' +
+                  chesspieces.get("B") +
+                  '" alt="White Bishop">'
+              );
             break;
           case "N":
-            $("div.box div").eq(i).html('<img id="N" class="white" src="' +
-                  chesspieces.get("N") +'" alt="White Knight">');
+            $("div.box div")
+              .eq(i)
+              .html(
+                '<img id="N" class="white" src="' +
+                  chesspieces.get("N") +
+                  '" alt="White Knight">'
+              );
             break;
           case "R":
-            $("div.box div").eq(i).html('<img id="R" class="white" src="' +
-                  chesspieces.get("R") +'" alt="White Rook">');
+            $("div.box div")
+              .eq(i)
+              .html(
+                '<img id="R" class="white" src="' +
+                  chesspieces.get("R") +
+                  '" alt="White Rook">'
+              );
             break;
           case "P":
-            $("div.box div").eq(i).html('<img id="P" class="white" src="' +
-                  chesspieces.get("P") +'" alt="White Pawn">');
+            $("div.box div")
+              .eq(i)
+              .html(
+                '<img id="P" class="white" src="' +
+                  chesspieces.get("P") +
+                  '" alt="White Pawn">'
+              );
             break;
         }
       }
@@ -381,19 +484,37 @@ function BlackRookRochade(fenRochade, id) {
 }
 
 function modal(color) {
-  $("div.modal-body").children().remove()
-  if(color){
+  $("div.modal-body").children().remove();
+  if (color) {
     $("div.modal-body").append(
-    '<img id="q" class="black chess-modal" src="' + chesspieces.get("q") +'" alt="Black Queen">'+
-    '<img id="b" class="black chess-modal" src="' + chesspieces.get("b") +'" alt="Black Bishop">'+
-    '<img id="n" class="black chess-modal" src="' + chesspieces.get("n") +'" alt="Black Knight">'+
-    '<img id="r" class="black chess-modal" src="' + chesspieces.get("r") +'" alt="Black Rook">');
+      '<img id="q" class="black chess-modal" src="' +
+        chesspieces.get("q") +
+        '" alt="Black Queen">' +
+        '<img id="b" class="black chess-modal" src="' +
+        chesspieces.get("b") +
+        '" alt="Black Bishop">' +
+        '<img id="n" class="black chess-modal" src="' +
+        chesspieces.get("n") +
+        '" alt="Black Knight">' +
+        '<img id="r" class="black chess-modal" src="' +
+        chesspieces.get("r") +
+        '" alt="Black Rook">'
+    );
   } else {
     $("div.modal-body").append(
-    '<img id="Q" class="white chess-modal" src="' + chesspieces.get("Q") +'" alt="White Queen">'+
-    '<img id="B" class="white chess-modal" src="' + chesspieces.get("B") +'" alt="White Bishop">'+
-    '<img id="N" class="white chess-modal" src="' + chesspieces.get("N") +'" alt="White Knight">'+
-    '<img id="R" class="white chess-modal" src="' + chesspieces.get("R") +'" alt="White Rook">');
+      '<img id="Q" class="white chess-modal" src="' +
+        chesspieces.get("Q") +
+        '" alt="White Queen">' +
+        '<img id="B" class="white chess-modal" src="' +
+        chesspieces.get("B") +
+        '" alt="White Bishop">' +
+        '<img id="N" class="white chess-modal" src="' +
+        chesspieces.get("N") +
+        '" alt="White Knight">' +
+        '<img id="R" class="white chess-modal" src="' +
+        chesspieces.get("R") +
+        '" alt="White Rook">'
+    );
   }
 
   return new Promise((resolve, reject) => {
@@ -401,61 +522,74 @@ function modal(color) {
     var modal = document.getElementById("myModal");
     // Open the modal
     modal.style.display = "block";
-    // Close modal            
-    document.querySelectorAll(".chess-modal").forEach( element => {
-        element.addEventListener("click", function(evt){
+    // Close modal
+    document.querySelectorAll(".chess-modal").forEach((element) => {
+      element.addEventListener("click", function (evt) {
         modal.style.display = "none";
-        resolve(evt.target.id)
-      })
-    })
-    
-  })
+        resolve(evt.target.id);
+      });
+    });
+  });
 }
 
-function CheckmateWhite(){
-  $("img#p").each((index, element) => BlackPawnMovement($(element).parent().attr("id"), FEN, true))
-  $("img#n").each((index, element) => BlackKnightMovement($(element).parent().attr("id"), true))
-  $("img#b").each((index, element) => BlackBishopMovement($(element).parent().attr("id"), true))
-  $("img#r").each((index, element) => BlackRookMovement($(element).parent().attr("id"), FEN, true))
-  BlackQueenMovement($("#q").parent().attr("id"), true)
+function CheckmateWhite() {
+  $("img#p").each((index, element) =>
+    BlackPawnMovement($(element).parent().attr("id"), FEN, true)
+  );
+  $("img#n").each((index, element) =>
+    BlackKnightMovement($(element).parent().attr("id"), true)
+  );
+  $("img#b").each((index, element) =>
+    BlackBishopMovement($(element).parent().attr("id"), true)
+  );
+  $("img#r").each((index, element) =>
+    BlackRookMovement($(element).parent().attr("id"), FEN, true)
+  );
+  BlackQueenMovement($("#q").parent().attr("id"), true);
 
-  if($("div.box.threat img").hasClass("black")){
-    if($("div.KingCheck").hasClass("highlight"))
-
-
-    $("div.box.threat img").each((index, figure) => {
-      switch($(figure).attr("id")){
-        case "q":
-          BlackQueenMovement($("#q").parent().attr("id"))
-          break;
-        case "b":
-          BlackBishopMovement(place);
-          break;
-        case "n":
-          BlackKnightMovement(place);
-          break;
-        case "r":
-          FEN = BlackRookMovement(place, FEN);
-          break;
-        case "p":
-          FEN = BlackPawnMovement(place, FEN);
-          break;
-    }
-  }) 
-}
+  if ($("div.box.threat img").hasClass("black")) {
+    if ($("div.KingCheck").hasClass("highlight"))
+      $("div.box.threat img").each((index, figure) => {
+        switch ($(figure).attr("id")) {
+          case "q":
+            BlackQueenMovement($("#q").parent().attr("id"));
+            break;
+          case "b":
+            BlackBishopMovement(place);
+            break;
+          case "n":
+            BlackKnightMovement(place);
+            break;
+          case "r":
+            FEN = BlackRookMovement(place, FEN);
+            break;
+          case "p":
+            FEN = BlackPawnMovement(place, FEN);
+            break;
+        }
+      });
+  }
   $("div.box").removeClass("highlight drop");
 }
 
-function CheckmateBlack(){
-  WhiteQueenMovement($("#Q").parent().attr("id"), true)
-  $("img#N").each((index, element) => WhiteKnightMovement($(element).parent().attr("id"), true))
-  $("img#B").each((index, element) => WhiteBishopMovement($(element).parent().attr("id"), true))
-  $("img#R").each((index, element) => WhiteRookMovement($(element).parent().attr("id"), FEN, true))
-  $("img#P").each((index, element) => WhitePawnMovement($(element).parent().attr("id"), FEN, true))
+function CheckmateBlack() {
+  WhiteQueenMovement($("#Q").parent().attr("id"), true);
+  $("img#N").each((index, element) =>
+    WhiteKnightMovement($(element).parent().attr("id"), true)
+  );
+  $("img#B").each((index, element) =>
+    WhiteBishopMovement($(element).parent().attr("id"), true)
+  );
+  $("img#R").each((index, element) =>
+    WhiteRookMovement($(element).parent().attr("id"), FEN, true)
+  );
+  $("img#P").each((index, element) =>
+    WhitePawnMovement($(element).parent().attr("id"), FEN, true)
+  );
 
-  if($("div.box.threat img").hasClass("white")){
-    console.log("Check Black")
-  } 
+  if ($("div.box.threat img").hasClass("white")) {
+    alert("Check Black");
+  }
   $("div.box").removeClass("highlight drop");
 }
 
@@ -464,49 +598,138 @@ $("#login").click(() => {
   modal.style.display = "block";
   // Get the <span> element that closes the modal
   var span = document.getElementById("closeLogin");
-  span.onclick = function() {
+  span.onclick = function () {
     modal.style.display = "none";
-  }
+  };
   // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
+  window.onclick = function (event) {
     if (event.target == modal) {
       modal.style.display = "none";
     }
-  } 
-})
+  };
+});
 
 $("#signup").click(() => {
   var modal = document.getElementById("signupModal");
   modal.style.display = "block";
   // Get the <span> element that closes the modal
   var span = document.getElementById("closeSignup");
-  span.onclick = function() {
+  span.onclick = function () {
     modal.style.display = "none";
-  }
+  };
   // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
+  window.onclick = function (event) {
     if (event.target == modal) {
       modal.style.display = "none";
     }
-  } 
-})
+  };
+});
 
 $("#rules").click(() => {
   var modal = document.getElementById("rulesModal");
   modal.style.display = "block";
   // Get the <span> element that closes the modal
   var span = document.getElementById("closeRules");
-  console.log(span)
-  span.onclick = function() {
+  span.onclick = function () {
     modal.style.display = "none";
-  }
+  };
   // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
+  window.onclick = function (event) {
     if (event.target == modal) {
       modal.style.display = "none";
     }
-  } 
-})
+  };
+});
 
+$(function () {
+  $(document).on("click", "#loginSubmit", (event) => {
+    if($("#loginUser").val() == ""){
+      $("#errLogin").html("Bitte Benutzername einfügen!")
+      return;
+    } else if($("#loginPwd").val() == ""){
+      $("#errLogin").html("Bitte Passwort einfügen!")
+      return;
+    }
+
+    let login = {
+      username: $("#loginUser").val(),
+      password: $("#loginPwd").val()
+    } 
+    $.ajax({
+      type: "POST",
+      url: "serviceHandler.php",
+      cache: false,
+      data: { method: "login", param: login},
+      dataType: "json",
+      success: (response) => {
+        if(response != "Benutzername nicht vorhanden!" && response != "Passwort falsch!"){
+          document.getElementById("loginModal").style.display = "none";
+          sessionStorage.setItem("username", $("#loginUser").val())
+          sessionStorage.setItem("FEN", response)
+          $("#loginUser").val("")
+          $("#loginPwd").val("")
+          FEN = response;
+          $("#login").remove()
+          $("#signup").remove()
+          $(".sidenav").append('<a class="nav-link" id="abmelden">Abmelden</a>');
+          fenBoard()
+        } else {
+          $("#errLogin").html(response)
+        }
+      },
+      error: (err) => {
+        console.log("Error login!");
+        console.log(err)
+      },
+    });
+  });
+});
+
+$(function () {
+  $(document).on("click", "#signupSubmit", (event) => {
+    if($("#signUser").val() == ""){
+      $("#errSign").html("Bitte Benutzername einfügen!")
+      return;
+    } else if($("#signPwd").val() == ""){
+      $("#errSign").html("Bitte Passwort einfügen!")
+      return;
+    }
+
+    let signup = {
+      username: $("#signUser").val(),
+      password: $("#signPwd").val(),
+      Fen: FEN
+    } 
+    $.ajax({
+      type: "POST",
+      url: "serviceHandler.php",
+      cache: false,
+      data: { method: "signup", param: signup },
+      dataType: "json",
+      success: (response) => {
+        if(response != "Benutzername schon vergeben"){
+          document.getElementById("signupModal").style.display = "none";
+          sessionStorage.setItem("username", $("#signUser").val())
+          sessionStorage.setItem("FEN", FEN)
+          $("#signUser").val("")
+          $("#signPwd").val("")
+          $("#login").remove()
+          $("#signup").remove()
+          $(".sidenav").append('<a class="nav-link" id="abmelden">Abmelden</a>');
+        } else {
+          $("#errSign").html(response)
+        }
+      },
+      error: (err) => {
+        console.log("Error signup!");
+      },
+    });
+  });
+});
+
+$(document).on("click", "#abmelden", (event) => {
+  sessionStorage.clear();
+  location.reload()
+})
 
 export { fenBoard, figureMovement, FEN };

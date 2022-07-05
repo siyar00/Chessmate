@@ -26,25 +26,12 @@
 </head>
 
 <body>
-    <!-- <section class="header">
-        <nav>
-            <div class="nav-links" id="navLinks">
-                <ul>
-                    <li class="nav-item">
-                    </li>
-                    <li class="nav-item">
-                    </li>
-                </ul>
-            </div>
-        </nav>-->
-
-
-    <div class="sidenav">
+    <div class="sidenav" id="sidenav">
         <a href="index.html" type="image/png"><img src="Images/My project-modified.png" height="75px"></a>
         <a class="nav-link" id="login">Login</a>
         <a class="nav-link" id="signup">Registrierung</a>
         <a class="nav-link" id="rules">Spielregeln</a>
-
+        <div id="abmelden"></div>
         <button id="btn" class="hero-btn">Restart!</button>
     </div>
 
@@ -130,8 +117,6 @@
             <div id="h8" class="box white-box drop"></div>
         </div>
     </div>
-    <!-- class player turn in script.js implementieren // alternierend pro Runde -->
-    <!-- </section> -->
     <br>
     <div class="text-box">
         <p class="player-turn">An der Reihe ist: Weiß</p>
@@ -163,18 +148,15 @@
                 <h2>Login</h2>
                 <form>
                     <div class="user-box">
-                        <input type="text" name="" required="">
+                        <input id="loginUser" type="text" name="" required="">
                         <label>Benutzername</label>
                     </div>
                     <div class="user-box">
-                        <input type="password" name="" required="">
+                        <input id="loginPwd" type="password" name="" required="">
                         <label>Passwort</label>
                     </div>
-                    <a href="#">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                    <div id="errLogin" style="color:red;"></div>
+                    <a type="submit" id="loginSubmit">
                         Login
                     </a>
                 </form>
@@ -191,18 +173,15 @@
                 <h2>Registrierung</h2>
                 <form>
                     <div class="user-box">
-                        <input type="text" name="" required="">
+                        <input id="signUser" type="text" name="" required="">
                         <label>Benutzername</label>
                     </div>
                     <div class="user-box">
-                        <input type="password" name="" required="">
+                        <input id="signPwd" type="password" name="" required="">
                         <label>Passwort</label>
                     </div>
-                    <a href="#">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                    <div id="errSign" style="color:red;"></div>
+                    <a type="submit" id="signupSubmit">
                         Registrieren
                     </a>
                 </form>
@@ -355,7 +334,13 @@
         </div>
     </div>
 
-
+<script>
+  if(sessionStorage.length != 0){
+    document.getElementById("login").remove()
+    document.getElementById("signup").remove()
+    document.getElementById("abmelden").innerHTML = '<a class="nav-link" id="abmelden">Abmelden</a>';
+  }
+</script>
 
 
 
