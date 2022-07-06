@@ -4,13 +4,10 @@
   left: 50% !important;
   width: 400px !important;
   padding: 40px !important;
-  -webkit-transform: translate(-50%, -50%) !important;
-          transform: translate(-50%, -50%) !important;
+  transform: translate(-50%, -50%) !important;
   background: rgba(0, 0, 0, 0.9) !important;
-  -webkit-box-sizing: border-box !important;
-          box-sizing: border-box !important;
-  -webkit-box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6) !important;
-          box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6) !important;
+  box-sizing: border-box !important;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6) !important;
   border-radius: 10px !important;
 }
 
@@ -45,7 +42,6 @@
   font-size: 16px !important;
   color: #fff !important;
   pointer-events: none !important;
-  -webkit-transition: 0.5s !important;
   transition: 0.5s !important;
 }
 
@@ -53,7 +49,7 @@
 .login-box .user-box input:valid ~ label {
   top: -20px !important;
   left: 0 !important;
-  color: #e4b99a !important;
+  color: rgb(228, 185, 154) !important;
   font-size: 12px !important;
 }
 
@@ -66,18 +62,16 @@
   text-decoration: none !important;
   text-transform: uppercase !important;
   overflow: hidden !important;
-  -webkit-transition: 0.5s !important;
   transition: 0.5s !important;
   margin-top: 15px !important;
   letter-spacing: 4px;
 }
 
 .login-box a:hover {
-  background: #ca804c !important;
+  background: rgb(202, 128, 76) !important;
   color: #fff !important;
   border-radius: 5px !important;
-  -webkit-box-shadow: 0 0 5px #ca804c, 0 0 25px #ca804c, 0 0 50px #ca804c, 0 0 100px #ca804c !important;
-          box-shadow: 0 0 5px #ca804c, 0 0 25px #ca804c, 0 0 50px #ca804c, 0 0 100px #ca804c !important;
+  box-shadow: 0 0 5px rgb(202, 128, 76), 0 0 25px rgb(202, 128, 76), 0 0 50px rgb(202, 128, 76), 0 0 100px rgb(202, 128, 76) !important;
 }
 
 .login-box a span {
@@ -90,8 +84,7 @@
   left: -100% !important;
   width: 100% !important;
   height: 2px !important;
-  background: -webkit-gradient(linear, left top, right top, from(transparent), to(#ca804c)) !important;
-  background: linear-gradient(90deg, transparent, #ca804c) !important;
+  background: linear-gradient(90deg, transparent, rgb(202, 128, 76)) !important;
   -webkit-animation: btn-anim1 1s linear infinite !important;
           animation: btn-anim1 1s linear infinite !important;
 }
@@ -100,8 +93,7 @@
   0% {
     left: -100% !important;
   }
-  50%,
-  100% {
+  50%, 100% {
     left: 100% !important;
   }
 }
@@ -110,19 +102,16 @@
   0% {
     left: -100% !important;
   }
-  50%,
-  100% {
+  50%, 100% {
     left: 100% !important;
   }
 }
-
 .login-box a span:nth-child(2) {
   top: -100% !important;
   right: 0 !important;
   width: 2px !important;
   height: 100% !important;
-  background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(#ca804c)) !important;
-  background: linear-gradient(180deg, transparent, #ca804c) !important;
+  background: linear-gradient(180deg, transparent, rgb(202, 128, 76)) !important;
   -webkit-animation: btn-anim2 1s linear infinite !important;
           animation: btn-anim2 1s linear infinite !important;
   -webkit-animation-delay: 0.25s;
@@ -133,8 +122,7 @@
   0% {
     top: -100% !important;
   }
-  50%,
-  100% {
+  50%, 100% {
     top: 100% !important;
   }
 }
@@ -143,19 +131,16 @@
   0% {
     top: -100% !important;
   }
-  50%,
-  100% {
+  50%, 100% {
     top: 100% !important;
   }
 }
-
 .login-box a span:nth-child(3) {
   bottom: 0 !important;
   right: -100% !important;
   width: 100% !important;
   height: 2px !important;
-  background: -webkit-gradient(linear, right top, left top, from(transparent), to(#ca804c)) !important;
-  background: linear-gradient(270deg, transparent, #ca804c) !important;
+  background: linear-gradient(270deg, transparent, rgb(202, 128, 76)) !important;
   -webkit-animation: btn-anim3 1s linear infinite !important;
           animation: btn-anim3 1s linear infinite !important;
   -webkit-animation-delay: 0.5s;
@@ -166,8 +151,7 @@
   0% {
     right: -100% !important;
   }
-  50%,
-  100% {
+  50%, 100% {
     right: 100% !important;
   }
 }
@@ -176,19 +160,16 @@
   0% {
     right: -100% !important;
   }
-  50%,
-  100% {
+  50%, 100% {
     right: 100% !important;
   }
 }
-
 .login-box a span:nth-child(4) {
   bottom: -100% !important;
   left: 0 !important;
   width: 2px !important;
   height: 100% !important;
-  background: -webkit-gradient(linear, left bottom, left top, from(transparent), to(#ca804c)) !important;
-  background: linear-gradient(360deg, transparent, #ca804c) !important;
+  background: linear-gradient(360deg, transparent, rgb(202, 128, 76)) !important;
   -webkit-animation: btn-anim4 1s linear infinite !important;
           animation: btn-anim4 1s linear infinite !important;
   -webkit-animation-delay: 0.75s;
@@ -199,8 +180,7 @@
   0% {
     bottom: -100% !important;
   }
-  50%,
-  100% {
+  50%, 100% {
     bottom: 100% !important;
   }
 }
@@ -209,12 +189,10 @@
   0% {
     bottom: -100% !important;
   }
-  50%,
-  100% {
+  50%, 100% {
     bottom: 100% !important;
   }
 }
-
 .figure h3 {
   color: beige;
   text-shadow: black;
@@ -223,17 +201,10 @@
   margin-bottom: 0rem;
   text-decoration: underline;
 }
-
 .figure p {
   margin-top: 0.2rem;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
-
 .figure p img {
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: end;
-}
-/*# sourceMappingURL=sing.css.map */
+  justify-content: end;
+}/*# sourceMappingURL=sing.css.map */

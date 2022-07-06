@@ -1,6 +1,13 @@
 @charset "UTF-8";
+.unselectable {
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 body {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(4, 9, 30, 0.7)), to(rgba(4, 9, 30, 0.7))), url("../Images/photo-1588412079929-790b9f593d8e.jpeg");
   background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)), url("../Images/photo-1588412079929-790b9f593d8e.jpeg");
   background-position: center;
   background-size: cover;
@@ -10,32 +17,27 @@ body {
 }
 
 div.chess-table.unselectable.container {
-  text-align: center;
-  margin-top: 20px;
+  margin-top: 6%;
 }
-
 div.chess-table.unselectable.container div.chess-row {
-  height: 4.16667rem;
+  height: inherit;
+  display: flex;
+  justify-content: center;
 }
-
 div.chess-table.unselectable.container div.box {
-  width: 4.16667rem;
-  height: 4.16667rem;
-  border: 1px solid black;
-  display: inline-block;
-  margin: -2px;
-  font-size: 1.66667rem;
-  text-align: center;
+  width: 4.1666666667rem;
+  height: 4.1666666667rem;
 }
-
 div.chess-table.unselectable.container div.box img {
-  margin: 2.733px;
-  width: 3.75rem;
-  height: 3.75rem;
+  width: 90%;
+  margin: 5%;
 }
-
 div.chess-table.unselectable.container div.box img[alt] {
   color: transparent;
+}
+div.chess-table.unselectable.container div.box .dragaware {
+  height: inherit;
+  width: inherit;
 }
 
 .header {
@@ -45,31 +47,20 @@ div.chess-table.unselectable.container div.box img[alt] {
 }
 
 nav {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   padding: 2% 6%;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  justify-content: space-between;
   /* verteilt Elemente gleichmäßig */
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
-
 nav img {
   width: 150px;
 }
-
 nav .nav-links {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  flex: 1;
   text-align: right;
   /* Anordnung des Textes nach rechts */
 }
-
 nav .nav-links ul li {
   list-style: none;
   display: inline-block;
@@ -78,25 +69,21 @@ nav .nav-links ul li {
   position: relative;
   /* Position kann sich anpassen */
 }
-
 nav .nav-links ul li:hover::after {
   /* schöner hover Effekt wenn man mit der Maus rüberfährt */
   width: 100%;
 }
-
 nav .nav-links ul li:hover::after::after {
   /* nachdem man mit der Maus rüberfährt */
   content: "";
   width: 0%;
   /*underline will be hidden*/
   height: 2px;
-  background: #ca804c;
+  background: rgb(202, 128, 76);
   display: block;
   margin: auto;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
 }
-
 nav .nav-links ul li a {
   color: #fff;
   text-decoration: none;
@@ -110,11 +97,9 @@ nav .nav-links ul li a {
   left: 50%;
   text-align: center;
 }
-
 .text-box h1 {
   font-size: 62px;
 }
-
 .text-box p {
   margin: 10px 0px 40px;
   font-size: 20px;
@@ -134,114 +119,24 @@ nav .nav-links ul li a {
   text-align: center;
   cursor: pointer;
 }
-
 .hero-btn:hover {
-  border: 1px solid #ca804c;
-  background: #ca804c;
-  -webkit-transition: 1s;
+  border: 1px solid rgb(202, 128, 76);
+  background: rgb(202, 128, 76);
   transition: 1s;
 }
 
 .black-box {
-  background-color: #ca804c;
+  background-color: rgb(202, 128, 76);
 }
-
 .black-box.highlight {
-  background: radial-gradient(ellipse, #ca804c, #ca804c, #ff0707) !important;
+  background: radial-gradient(ellipse, rgb(202, 128, 76), rgb(202, 128, 76), #ff0707) !important;
 }
 
 .white-box {
-  background-color: #e4b99a;
+  background-color: rgb(228, 185, 154);
 }
-
 .white-box.highlight {
-  background: radial-gradient(ellipse, #e4b99a, #e4b99a, #ff0707) !important;
-}
-
-.unselectable {
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-@media only screen and (max-width: 800px) {
-  div.box {
-    width: 10px;
-    height: 3.33333rem;
-    border: 1px solid black;
-    display: inline-block;
-    margin: -2px;
-    font-size: 1.33333rem;
-    text-align: center;
-  }
-  div.box img {
-    margin: 2.1666px;
-    width: 3rem;
-    height: 3rem;
-  }
-  div.box img[alt] {
-    color: transparent;
-  }
-  div.chess-row {
-    height: 3.33333rem;
-  }
-  div.chess-table {
-    width: 40rem;
-  }
-}
-
-@media (max-width: 450px) {
-  div.box {
-    width: 2.5rem;
-    height: 2.5rem;
-    border: 1px solid black;
-    display: inline-block;
-    margin: -2px;
-    font-size: 1rem;
-    text-align: center;
-  }
-  div.box img {
-    margin: 1.5px;
-    width: 2.25rem;
-    height: 2.25rem;
-  }
-  div.box img[alt] {
-    color: transparent;
-  }
-  div.chess-row {
-    height: 2.5rem;
-  }
-  div.chess-table {
-    width: 30rem;
-  }
-}
-
-@media (max-width: 350px) {
-  div.box {
-    width: 2rem;
-    height: 2rem;
-    border: 1px solid black;
-    display: inline-block;
-    margin: -2px;
-    font-size: 0.8rem;
-    text-align: center;
-  }
-  div.box img {
-    margin: 1px;
-    width: 1.8rem;
-    height: 1.8rem;
-  }
-  div.box img[alt] {
-    color: transparent;
-  }
-  div.chess-row {
-    height: 2rem;
-  }
-  div.chess-table {
-    width: 24rem;
-  }
+  background: radial-gradient(ellipse, rgb(228, 185, 154), rgb(228, 185, 154), #ff0707) !important;
 }
 
 /* The Modal (background) */
@@ -261,35 +156,30 @@ nav .nav-links ul li a {
   height: 100%;
   overflow-y: initial !important;
   /* Enable scroll if needed */
-  background-color: black;
+  background-color: rgb(0, 0, 0);
   /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4);
   /* Black w/ opacity */
   /* Modal Content */
 }
-
 .modal .modal-header {
   padding: 2px 16px;
   color: whitesmoke;
   background: rgba(202, 128, 76, 0.9) !important;
 }
-
 .modal .modal-footer {
   padding: 2px 16px;
   background-color: rgba(202, 128, 76, 0.9);
   color: whitesmoke;
 }
-
 .modal .modal-body {
   padding: 2px 16px;
   height: 85%;
   overflow-y: auto;
 }
-
 .modal .modal-body img {
   width: 6rem;
 }
-
 .modal .modal-content {
   position: relative;
   color: whitesmoke;
@@ -298,16 +188,13 @@ nav .nav-links ul li a {
   margin-left: 160px;
   padding: 0;
   width: 80%;
-  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   -webkit-animation-name: animatetop;
   animation-name: animatetop;
 }
-
 .modal .sign {
   top: 40%;
 }
-
 .modal .scrollable {
   height: 80%;
 }
@@ -323,7 +210,6 @@ nav .nav-links ul li a {
     opacity: 1;
   }
 }
-
 @keyframes animatetop {
   from {
     top: -300px;
@@ -334,7 +220,6 @@ nav .nav-links ul li a {
     opacity: 1;
   }
 }
-
 /* The Close Button */
 .close {
   color: #aaa;
@@ -360,7 +245,6 @@ nav .nav-links ul li a {
   overflow-x: hidden;
   padding-top: 20px;
 }
-
 .sidenav a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
@@ -368,11 +252,9 @@ nav .nav-links ul li a {
   color: #818181;
   display: block;
 }
-
 .sidenav a:hover {
   color: #f1f1f1;
 }
-
 .sidenav button {
   bottom: 5%;
 }
@@ -393,4 +275,33 @@ nav .nav-links ul li a {
     font-size: 18px;
   }
 }
-/*# sourceMappingURL=style.css.map */
+@media screen and (max-width: 750px) {
+  div.chess-table.unselectable.container div.box {
+    width: 3.3333333333rem;
+    height: 3.3333333333rem;
+  }
+
+  .text-box p.player-turn {
+    font-size: 15px;
+  }
+}
+@media only screen and (max-width: 650px) {
+  div.chess-table.unselectable.container div.box {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .text-box p.player-turn {
+    font-size: 12px;
+  }
+}
+@media only screen and (max-width: 550px) {
+  div.chess-table.unselectable.container div.box {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .text-box p.player-turn {
+    font-size: 8px;
+  }
+}/*# sourceMappingURL=style.css.map */

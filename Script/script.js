@@ -14,7 +14,7 @@ import {
 } from "./movement.js";
 
 var FEN =
-  "rnbqkbnr/pppppppp/11P11111/11111111/11111111/11111111/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+  "rnbqkbnr/pppppppp/11111111/11111111/11111111/11111111/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 if (sessionStorage.length != 0) {
   FEN = sessionStorage.getItem("FEN");
 }
@@ -227,17 +227,18 @@ $(document).ready(
                 },
               });
             } //Update der FEN in der Datenbank
-
-            if (droptarget.lastChild.id == "K") {
-              alert("Schwarz gewinnt!");
-              $(".drop").removeClass("drop");
-              $(".dragdrop").draggable("destroy");
-              return;
-            } else if (droptarget.lastChild.id == "k") {
-              alert("Weiß gewinnt!");
-              $(".drop").removeClass("drop");
-              $(".dragdrop").draggable("destroy");
-              return;
+            if (droptarget.firstChild.firstChild != null) {
+              if (droptarget.firstChild.firstChild.id == "K") {
+                alert("Schwarz gewinnt!");
+                $(".drop").removeClass("drop");
+                $(".dragdrop").draggable("destroy");
+                return;
+              } else if (droptarget.firstChild.firstChild.id == "k") {
+                alert("Weiß gewinnt!");
+                $(".drop").removeClass("drop");
+                $(".dragdrop").draggable("destroy");
+                return;
+              }
             }
 
             fenBoard();
@@ -567,27 +568,35 @@ function CheckmateWhite() {
     if ($(element).hasClass("chess-modal")) loop = false;
     if (loop) BlackRookMovement($(element).parent().attr("id"), FEN, true);
   });
-  BlackQueenMovement($("#q").parent().attr("id"), true);
+  $("img#r").each((index, element) => {
+    var loop = true;
+    if ($(element).hasClass("chess-modal")) loop = false;
+    if (loop) BlackQueenMovement($(element).parent().attr("id"), FEN, true);
+  });
 
   if ($("div.box.threat img").hasClass("black")) {
     if ($("div.KingCheck").hasClass("highlight")) {
       $("div.box.threat img").each((index, figure) => {
-        switch ($(figure).attr("id")) {
-          case "q":
-            BlackQueenMovement($("#q").parent().attr("id"));
-            break;
-          case "b":
-            BlackBishopMovement(place);
-            break;
-          case "n":
-            BlackKnightMovement(place);
-            break;
-          case "r":
-            FEN = BlackRookMovement(place, FEN);
-            break;
-          case "p":
-            FEN = BlackPawnMovement(place, FEN);
-            break;
+        var loop = true;
+        if ($(element).hasClass("chess-modal")) loop = false;
+        if (loop) {
+          switch ($(figure).attr("id")) {
+            case "q":
+              BlackQueenMovement($("#q").parent().attr("id"));
+              break;
+            case "b":
+              BlackBishopMovement(place);
+              break;
+            case "n":
+              BlackKnightMovement(place);
+              break;
+            case "r":
+              FEN = BlackRookMovement(place, FEN);
+              break;
+            case "p":
+              FEN = BlackPawnMovement(place, FEN);
+              break;
+          }
         }
       });
     }
@@ -600,7 +609,11 @@ function CheckmateWhite() {
 }
 
 function CheckmateBlack() {
-  WhiteQueenMovement($("#Q").parent().attr("id"), true);
+  $("img#r").each((index, element) => {
+    var loop = true;
+    if ($(element).hasClass("chess-modal")) loop = false;
+    if (loop) WhiteQueenMovement($(element).parent().attr("id"), FEN, true);
+  });
   $("img#N").each((index, element) => {
     var loop = true;
     if ($(element).hasClass("chess-modal")) loop = false;
@@ -623,26 +636,31 @@ function CheckmateBlack() {
   });
 
   if ($("div.box.threat img").hasClass("white")) {
-    if ($("div.KingCheck").hasClass("highlight"))
+    if ($("div.KingCheck").hasClass("highlight")) {
       $("div.box.threat img").each((index, figure) => {
-        switch ($(figure).attr("id")) {
-          case "Q":
-            BlackQueenMovement($("#Q").parent().attr("id"));
-            break;
-          case "B":
-            BlackBishopMovement(place);
-            break;
-          case "N":
-            BlackKnightMovement(place);
-            break;
-          case "R":
-            FEN = BlackRookMovement(place, FEN);
-            break;
-          case "P":
-            FEN = BlackPawnMovement(place, FEN);
-            break;
+        var loop = true;
+        if ($(element).hasClass("chess-modal")) loop = false;
+        if (loop) {
+          switch ($(figure).attr("id")) {
+            case "Q":
+              BlackQueenMovement($("#Q").parent().attr("id"));
+              break;
+            case "B":
+              BlackBishopMovement(place);
+              break;
+            case "N":
+              BlackKnightMovement(place);
+              break;
+            case "R":
+              FEN = BlackRookMovement(place, FEN);
+              break;
+            case "P":
+              FEN = BlackPawnMovement(place, FEN);
+              break;
+          }
         }
       });
+    }
   }
 
   if ($("div.box.threat img").hasClass("white")) {

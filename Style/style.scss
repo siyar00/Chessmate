@@ -4,6 +4,14 @@ $imageSize: 50rem;
 //   outline: 1px solid limegreen !important;
 // }
 
+.unselectable {
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+} //Damit das markieren nicht funktioniert
+
 body {
   background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
     url("../Images/photo-1588412079929-790b9f593d8e.jpeg");
@@ -15,28 +23,28 @@ body {
 }
 
 div.chess-table.unselectable.container {
-  text-align: center;
-  margin-top: 20px;
+  margin-top: 6%;
 
   div.chess-row {
-    height: $imageSize / 12;
+    height: inherit;
+    display: flex;
+    justify-content: center;
   }
 
   div.box {
-    width: $imageSize / 12;
-    height: $imageSize / 12;
-    border: 1px solid black;
-    display: inline-block;
-    margin: -2px;
-    font-size: $imageSize / 30;
-    text-align: center;
+    width: calc($imageSize / 12);
+    height: calc($imageSize / 12);
+    // margin: -2px;
     img {
-      margin: 2.733px;
-      width: $imageSize / 12 * 0.9;
-      height: $imageSize / 12 * 0.9;
+      width: 90%;
+      margin: 5%;
       &[alt] {
         color: transparent;
       }
+    }
+    .dragaware {
+      height: inherit;
+      width: inherit;
     }
   }
 }
@@ -157,101 +165,6 @@ nav {
       rgb(228, 185, 154),
       #ff0707
     ) !important;
-  }
-}
-
-.unselectable {
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-} //Damit das markieren nicht funktioniert
-
-@media only screen and (max-width: 800px) {
-  $imageSize: 40rem;
-  div.box {
-    width: 10px;
-    height: $imageSize / 12;
-    border: 1px solid black;
-    display: inline-block;
-    margin: -2px;
-    font-size: $imageSize / 30;
-    text-align: center;
-    img {
-      margin: 2.1666px;
-      width: $imageSize / 12 * 0.9;
-      height: $imageSize / 12 * 0.9;
-      &[alt] {
-        color: transparent;
-      }
-    }
-  }
-
-  div.chess-row {
-    height: $imageSize / 12;
-  }
-
-  div.chess-table {
-    width: $imageSize;
-  }
-}
-
-@media (max-width: 450px) {
-  $imageSize: 30rem;
-  div.box {
-    width: $imageSize / 12;
-    height: $imageSize / 12;
-    border: 1px solid black;
-    display: inline-block;
-    margin: -2px;
-    font-size: $imageSize / 30;
-    text-align: center;
-    img {
-      margin: 1.5px;
-      width: $imageSize / 12 * 0.9;
-      height: $imageSize / 12 * 0.9;
-      &[alt] {
-        color: transparent;
-      }
-    }
-  }
-
-  div.chess-row {
-    height: $imageSize / 12;
-  }
-
-  div.chess-table {
-    width: $imageSize;
-  }
-}
-
-@media (max-width: 350px) {
-  $imageSize: 24rem;
-  div.box {
-    width: $imageSize / 12;
-    height: $imageSize / 12;
-    border: 1px solid black;
-    display: inline-block;
-    margin: -2px;
-    font-size: $imageSize / 30;
-    text-align: center;
-    img {
-      margin: 1px;
-      width: $imageSize / 12 * 0.9;
-      height: $imageSize / 12 * 0.9;
-      &[alt] {
-        color: transparent;
-      }
-    }
-  }
-
-  div.chess-row {
-    height: $imageSize / 12;
-  }
-
-  div.chess-table {
-    width: $imageSize;
   }
 }
 
@@ -388,5 +301,38 @@ nav {
     a {
     font-size: 18px;
     }
+  }
+}
+
+@media screen and (max-width: 750px) {
+  $imageSize: 40rem;
+  div.chess-table.unselectable.container div.box {
+    width: calc($imageSize / 12);
+    height: calc($imageSize / 12);
+  }
+  .text-box p.player-turn {
+    font-size: 15px;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  $imageSize: 30rem;
+  div.chess-table.unselectable.container div.box {
+    width: calc($imageSize / 12) ;
+    height: calc($imageSize / 12) ;
+  }
+  .text-box p.player-turn {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  $imageSize: 24rem;
+  div.chess-table.unselectable.container div.box {
+    width: calc($imageSize / 12);
+    height: calc($imageSize / 12);
+  }
+  .text-box p.player-turn {
+    font-size: 8px;
   }
 }

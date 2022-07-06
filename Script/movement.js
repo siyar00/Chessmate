@@ -5,16 +5,18 @@ function WhitePawnMovement(place, FEN, check = false){
   const placeRow = parseInt(place.charAt(1)) - 1;
   const placeColumn = place.charCodeAt(0);
 
-  if($("div.box#"+String.fromCharCode(placeColumn+1)+placeRow+" img").hasClass("black")
-    || ($("div.box#"+String.fromCharCode(placeColumn+1)+(placeRow+1)+" img").hasClass("black") // Wahr-> EnPassent möglich
-    && fen[3] != "-" && (fenColumn+1 == placeColumn || fenColumn-1 == placeColumn))){
+  if($("div.box#"+String.fromCharCode(placeColumn+1)+placeRow+" img").hasClass("black") || 
+  // Alles danach wenn wahr -> En-Passent
+  ($("div.box#"+String.fromCharCode(placeColumn+1)+(placeRow+1)+" img").hasClass("black") 
+    && fen[3] != "-" && fenColumn-1 == placeColumn )){
       $("div.box#"+String.fromCharCode(placeColumn+1)+placeRow).addClass("drop highlight")//Rechter Bauernschlag
     } 
 
   if(placeColumn-1 != 96){
-    if($("div.box#"+String.fromCharCode(placeColumn-1)+placeRow+" img").hasClass("black")
-      || ($("div.box#"+String.fromCharCode(placeColumn-1)+(placeRow+1)+" img").hasClass("black") 
-      && fen[3] != "-" && (fenColumn+1 == placeColumn || fenColumn-1 == placeColumn))){
+    if($("div.box#"+String.fromCharCode(placeColumn-1)+placeRow+" img").hasClass("black") ||
+    // Alles danach wenn wahr -> En-Passent
+    ($("div.box#"+String.fromCharCode(placeColumn-1)+(placeRow+1)+" img").hasClass("black") 
+      && fen[3] != "-" && fenColumn+1 == placeColumn)){
               $("div.box#"+String.fromCharCode(placeColumn-1)+placeRow).addClass("drop highlight")//Linker Bauernschlag
     }
   }
