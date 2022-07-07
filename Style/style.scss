@@ -4,7 +4,7 @@ $imageSize: 50rem;
 //   outline: 1px solid limegreen !important;
 // }
 
-.unselectable {
+body {
   -webkit-user-select: none;
   -webkit-touch-callout: none;
   -moz-user-select: none;
@@ -15,11 +15,11 @@ $imageSize: 50rem;
 body {
   background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
     url("../Images/photo-1588412079929-790b9f593d8e.jpeg");
+  background-attachment: fixed;
   background-position: center;
   background-size: cover;
   position: relative;
   font-family: "Lato", sans-serif, Arial, Helvetica, sans-serif;
-  padding-left: 11rem;
 }
 
 div.chess-table.unselectable.container {
@@ -49,67 +49,9 @@ div.chess-table.unselectable.container {
   }
 }
 
-.header {
-  min-height: 80vh;
-  width: 100%;
-  // background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)), url("/Images/photo-1588412079929-790b9f593d8e.jpeg");
-  // background-position: center;
-  // background-size: cover;
-  position: relative;
-}
-
-nav {
-  display: flex;
-  padding: 2% 6%;
-  justify-content: space-between;
-  /* verteilt Elemente gleichmäßig */
-  align-items: center;
-  img {
-    width: 150px;
-  }
-
-  .nav-links {
-    flex: 1;
-    text-align: right;
-    /* Anordnung des Textes nach rechts */
-    ul li {
-      list-style: none;
-      display: inline-block;
-      /* in einer Line horizontal */
-      padding: 8px 12px;
-      position: relative;
-      /* Position kann sich anpassen */
-      &:hover::after {
-        /* schöner hover Effekt wenn man mit der Maus rüberfährt */
-        width: 100%;
-
-        &::after {
-          /* nachdem man mit der Maus rüberfährt */
-          content: "";
-          width: 0%;
-          /*underline will be hidden*/
-          height: 2px;
-          background: rgb(202, 128, 76);
-          display: block;
-          margin: auto;
-          transition: 0.5s;
-        }
-      }
-
-      a {
-        color: #fff;
-        text-decoration: none;
-        font-size: 13px;
-      }
-    }
-  }
-}
-
 .text-box {
   /* alle Texte sollen zentriert dargstellt werden */
   color: #fff;
-  position: fixed;
-  left: 50%;
   text-align: center;
 
   h1 {
@@ -120,27 +62,6 @@ nav {
     margin: 10px 0px 40px;
     font-size: 20px;
     color: #fff;
-  }
-}
-
-.hero-btn {
-  display: inline-block;
-  // top: 60%;
-  text-decoration: none;
-  color: #fff;
-  border: 1px solid #fff;
-  padding: 10px 3rem;
-  margin: 16px;
-  font-size: 13px;
-  background: transparent;
-  position: absolute;
-  text-align: center;
-  cursor: pointer;
-
-  &:hover {
-    border: 1px solid rgb(202, 128, 76);
-    background: rgb(202, 128, 76);
-    transition: 1s;
   }
 }
 
@@ -177,13 +98,26 @@ nav {
   left: 0;
   top: 0;
   width: 100%; /* Full width */
-  height: 100%; 
+  height: 100%;
   overflow-y: initial !important; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  /* The Close Button */
+  .close {
+    color: rgb(214, 214, 214);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
   .modal-header {
     padding: 2px 16px;
-    // background-color: #585734;
     color: whitesmoke;
     background: rgba(202, 128, 76, 0.9) !important;
   }
@@ -200,6 +134,7 @@ nav {
     overflow-y: auto;
     img {
       width: 6rem;
+      height: 6rem;
     }
   }
 
@@ -207,23 +142,20 @@ nav {
   .modal-content {
     position: relative;
     color: whitesmoke;
-    background: rgba(0, 0, 0, 0.85) !important;
+    background: rgba(58, 58, 58, 0.95) !important;
     margin: auto;
-    margin-left: 160px;
-    padding: 0;
     width: 80%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     -webkit-animation-name: animatetop;
     animation-name: animatetop;
   }
   .sign {
-    top: 40%
+    top: 40%;
   }
-  .scrollable{
+  .scrollable {
     height: 80%;
   }
 }
-
 
 /* Add Animation */
 @-webkit-keyframes animatetop {
@@ -248,61 +180,57 @@ nav {
   }
 }
 
-/* The Close Button */
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
+.hero-btn {
+  color: whitesmoke;
+  border: 1px solid #fff;
+  padding: 10px 50px;
+  margin: 16px;
+  font-size: 13px;
+  background: transparent;
+  position: absolute;
+  bottom: 5%;
 
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.sidenav {
-  height: 100%;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: rgba(17, 17, 17, 0.5);
-  overflow-x: hidden;
-  padding-top: 20px;
-  
-  a {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
-  display: block;
-
-    &:hover {
-      color: #f1f1f1;
-    }
-  }
-
-  button{
-    bottom: 5%
+  &:hover {
+    border: 1px solid rgb(202, 128, 76);
+    background: rgb(202, 128, 76);
+    transition: 1s;
   }
 }
-.main {
-  margin-left: 160px; /* Same as the width of the sidenav */
-  font-size: 28px; /* Increased text to enable scrolling */
-  padding: 0px 10px;
-}
 
-@media screen and (max-height: 450px) {
+@mixin sidenav($bp: 0px) {
   .sidenav {
-    padding-top: 15px;
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgba(17, 17, 17, 0.5);
+    overflow-x: hidden;
+    padding-top: 20px;
+
     a {
-    font-size: 18px;
+      padding: 6px 8px 6px 16px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #818181;
+      display: block;
+
+      &:hover {
+        color: #f1f1f1;
+      }
+
+      img {
+        height: 75px;
+      }
     }
   }
+
+  body {
+    padding-left: 11rem;
+  }
 }
+
+@include sidenav();
 
 @media screen and (max-width: 750px) {
   $imageSize: 40rem;
@@ -311,28 +239,139 @@ nav {
     height: calc($imageSize / 12);
   }
   .text-box p.player-turn {
-    font-size: 15px;
+    font-size: 18px;
+  }
+
+  .hero-btn {
+    padding: 10px 30px;
+  }
+
+  .sidenav {
+    a {
+      font-size: 20px;
+      img {
+        height: 60px;
+      }
+    }
+  }
+
+  body {
+    padding-left: 144px;
   }
 }
 
-@media only screen and (max-width: 650px) {
+@media only screen and (max-width: 600px) {
   $imageSize: 30rem;
   div.chess-table.unselectable.container div.box {
-    width: calc($imageSize / 12) ;
-    height: calc($imageSize / 12) ;
+    width: calc($imageSize / 12);
+    height: calc($imageSize / 12);
   }
   .text-box p.player-turn {
-    font-size: 12px;
+    font-size: 15px;
+  }
+  .hero-btn {
+    padding: 10px 28px;
+    bottom: auto;
+  }
+
+  .sidenav {
+    a {
+      font-size: 18px;
+      img {
+        height: 55px;
+      }
+    }
+  }
+
+  body {
+    padding-left: 134px;
+  }
+  .modal {
+    font-size: 0.9rem;
   }
 }
 
-@media only screen and (max-width: 550px) {
+@media only screen and (max-width: 460px) {
   $imageSize: 24rem;
   div.chess-table.unselectable.container div.box {
     width: calc($imageSize / 12);
     height: calc($imageSize / 12);
   }
   .text-box p.player-turn {
-    font-size: 8px;
+    font-size: 12px;
+  }
+
+  .hero-btn {
+    padding: 6px 20px;
+    bottom: auto;
+  }
+
+  .sidenav {
+    a {
+      font-size: 15px;
+      img {
+        height: 45px;
+      }
+    }
+  }
+
+  body {
+    padding-left: 114px;
+  }
+  .modal {
+    font-size: 0.8rem;
   }
 }
+
+@media only screen and (max-height: 700px) {
+  .hero-btn {
+    bottom: auto;
+  }
+}
+
+// nav {
+//   display: flex;
+//   padding: 2% 6%;
+//   justify-content: space-between;
+//   /* verteilt Elemente gleichmäßig */
+//   align-items: center;
+//   img {
+//     width: 150px;
+//   }
+
+//   .nav-links {
+//     flex: 1;
+//     text-align: right;
+//     /* Anordnung des Textes nach rechts */
+//     ul li {
+//       list-style: none;
+//       display: inline-block;
+//       /* in einer Line horizontal */
+//       padding: 8px 12px;
+//       position: relative;
+//       /* Position kann sich anpassen */
+//       &:hover::after {
+//         /* schöner hover Effekt wenn man mit der Maus rüberfährt */
+//         width: 100%;
+
+//         &::after {
+//           /* nachdem man mit der Maus rüberfährt */
+//           content: "";
+//           width: 0%;
+//           /*underline will be hidden*/
+//           height: 2px;
+//           background: rgb(202, 128, 76);
+//           display: block;
+//           margin: auto;
+//           transition: 0.5s;
+//         }
+//       }
+
+//       a {
+//         color: #fff;
+//         text-decoration: none;
+//         font-size: 13px;
+//       }
+//     }
+//   }
+// }

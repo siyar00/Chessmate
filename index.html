@@ -27,7 +27,7 @@
 
 <body>
     <div class="sidenav" id="sidenav">
-        <a href="index.html" type="image/png"><img src="Images/My project-modified.png" height="75px"></a>
+        <a href="index.html" type="image/png"><img src="Images/My project-modified.png"></a>
         <a class="nav-link" id="login">Login</a>
         <a class="nav-link" id="signup">Registrierung</a>
         <a class="nav-link" id="rules">Spielregeln</a>
@@ -328,7 +328,7 @@
         if (sessionStorage.length != 0) {
             document.getElementById("login").remove()
             document.getElementById("signup").remove()
-            document.getElementById("abmelden").innerHTML = '<a class="nav-link" id="abmelden">Abmelden</a>';
+            document.getElementById("abmelden").innerHTML = '<a class="nav-link">Abmelden</a>';
         }
     </script>
 

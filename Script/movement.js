@@ -240,15 +240,23 @@ function BlackBishopMovement(place, check = false){
 
 function WhiteQueenMovement(place, check = false){
   WhiteRookMovement(place, check);
-  WhiteBishopMovement(place), check;
+  WhiteBishopMovement(place, check);
+  if(check && $("#k").parent().parent().hasClass("highlight")){
+    $("div.box#"+place).addClass("threat")
+    $(".highlight").removeClass("highlight")
+  }
 }
 
 function BlackQueenMovement(place, check = false){
   BlackRookMovement(place, check);
-  BlackBishopMovement(place, check);   
+  BlackBishopMovement(place, check);
+  if(check && $("#K").parent().parent().hasClass("highlight")){
+    $("div.box#"+place).addClass("threat")
+    $(".highlight").removeClass("highlight")
+  } 
 }
 
-function WhiteKingMovement(place, FEN, check = false){
+function WhiteKingMovement(place, FEN){
   const placeRow = parseInt(place.charAt(1));
   const placeColumn = place.charCodeAt(0);
   const fen = FEN.split(" ")
@@ -272,7 +280,7 @@ function WhiteKingMovement(place, FEN, check = false){
   }
 }
 
-function BlackKingMovement(place, FEN, check = false){
+function BlackKingMovement(place, FEN){
   const placeRow = parseInt(place.charAt(1));
   const placeColumn = place.charCodeAt(0);
   const fen = FEN.split(" ")
